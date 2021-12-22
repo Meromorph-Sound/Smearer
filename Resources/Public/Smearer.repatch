@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JukeboxPatch
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="patch.xsd" version="1.0">
+	<DeviceNameInEnglish>Smearer</DeviceNameInEnglish>
+	<Properties deviceProductID="org.porternet.smearer"
+		deviceVersion="0.1.0d1">
+		<Object name="custom_properties">
+			<Value property="n_oscillators" type="number">10</Value>
+			<Value property="scale_factor" type="number">1</Value>
+		</Object>
+	</Properties>
+</JukeboxPatch>

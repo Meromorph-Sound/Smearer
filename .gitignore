@@ -1,0 +1,9 @@
+
+.cproject
+.project
+.pydevproject
+*.plist
+.settings
+Debug
+GUI
+Internediate-llvm
