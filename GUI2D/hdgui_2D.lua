@@ -30,7 +30,7 @@ front = jbox.panel {
     jbox.up_down_button(simpleNode("window")),
     jbox.analog_knob({ graphics = { node = "window_display" },value = "/custom_properties/window" }),
     jbox.toggle_button(simpleNode("filter_on")),
-    jbox.analog_knob (simpleNode("filter_cutoff")),
+    jbox.analog_knob (simpleNode("filter_q")),
     jbox.toggle_button(simpleNode("limiter_on")),
     jbox.analog_knob (simpleNode("limiter")),
     jbox.toggle_button(simpleNode("limiter_hs")),

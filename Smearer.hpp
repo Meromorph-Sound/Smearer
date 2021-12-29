@@ -39,7 +39,7 @@ enum Tags : uint32 {
 	LIMIT_DEPTH=8,
 	WINDOW=4,
 	FILTER_ON=5,
-	FILTER_CUTOFF=6
+	FILTER_Q=6
 	};
 
 class Smearer : public RackExtension {

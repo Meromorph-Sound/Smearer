@@ -18,14 +18,15 @@ void Oscillator::step() {
 }
 
 
-float32 Oscillator::operator()() {
+float32 Oscillator::value() {
 	step();
 	return cos(phase)*amplitude ;
 }
 
 const uint32 OscillatorBank::MaxN = 500;
 
-float32 OscillatorBank::randomFreq() { return lower+random()*width*rate; }
+float32 OscillatorBank::randomFreq() { return (lower+random()*width)*rate; }
+int32 OscillatorBank::randomLifetime() { return int32(597+20000*random()); }
 
 float32 OscillatorBank::window(const float32 f) {
 	auto sf=fabs(f/width);
@@ -45,17 +46,28 @@ float32 OscillatorBank::window(const float32 f) {
 	}
 }
 
+OscillatorBank::OscillatorBank() : N(1), bank(MaxN), remainder(MaxN,0), windowType(WindowType::Triangular),
+		lower(0), width(1), rate(2*Pi/44100), jitterRate(0), jitterOn(false) {
+	for(auto n=0;n<MaxN;n++) bank[n]=std::make_shared<Oscillator>(random());
+};
+
+
 int32 OscillatorBank::initOscillator(const uint32 n) {
 	auto freq = randomFreq();
-	auto lifetime = (int32)(32+4096*random());
+	auto lifetime = randomLifetime();
 	auto amp  = window(freq);
 
-	bank[n].init(freq,amp);
+	bank[n]->init(freq,amp);
 	return lifetime;
 }
 
 void OscillatorBank::reset() {
-	for(auto it=bank.begin();it!=bank.end();it++) it->reset();
+	for(auto n=0;n<MaxN;n++) bank[n]->reset(random());
+}
+
+void OscillatorBank::jitter(const float32 limit) {
+	if(!jitterOn || random()>=jitterRate) return;
+	for(auto n=0;n<MaxN;n++) bank[n]->jitter(random()*limit);
 }
 
 
@@ -77,8 +89,9 @@ float32 OscillatorBank::operator()() {
 		auto r=remainder[n];
 		if(r<=1) r=initOscillator(n);
 		remainder[n]=r-1;
-		out+=bank[n]();
+		out+=bank[n]->value();
 	}
+	jitter();
 	return out;
 }
 

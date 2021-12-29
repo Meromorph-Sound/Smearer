@@ -13,22 +13,33 @@ namespace smearer {
 void Filter::setActive(const bool b) {
 		active=b;
 		last=0;
+		last2=0;
 	}
 
-	void Filter::setParam(const float32 p) { param=p; }
 
-void Filter::filter(float32 *data,const uint32 n) {
+	void Filter::setQ(const float32 q) {
+		rho=q;
+		rhoC=1.f-q;
+	}
+
+	void Filter::filter(std::vector<float32> &vector) {
 		if(!active) return;
-		auto a = param;
-		for(auto i=0;i<n;i++) {
-			auto oN = a*last + data[n];
-			last=oN;
-			data[n]=oN;
+		else {
+			auto state1=last;
+			auto state2=last2;
+			auto p1=rho*rhoC;
+			auto p2=rhoC;
+			std::transform(vector.begin(),vector.end(),vector.begin(),[p1,p2,&state1,&state2](float32 x) {
+				//auto s=rho*rho*x + rho*rhoC*state2 + rhoC*state1;
+				auto s = x + p1*state2 + p2*state1;
+				state2=state1;
+				state1=s;
+				return s;
+			});
+			last=state1;
+			last2=state2;
 		}
 	}
-void Filter::filter(std::vector<float32> &vector) {
-	filter(vector.data(),vector.size());
-}
 
 } /* namespace smearer */
 } /* namespace meromorph */

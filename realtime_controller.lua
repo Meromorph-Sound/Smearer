@@ -34,7 +34,7 @@ rt_input_setup = {
   "/custom_properties/limiter_hs",
   "/custom_properties/limiter",
    "/custom_properties/filter_on",
-   "/custom_properties/filter_cutoff",
+   "/custom_properties/filter_q",
    "/custom_properties/window",
 --  "/custom_properties/inGain",
 --   "/custom_properties/outGain",

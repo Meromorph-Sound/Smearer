@@ -110,12 +110,16 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		break;
 	}
 	case Tags::LIMIT_DEPTH: {
-		auto d = scaledFloat(diff.fCurrentValue,-12.f,3.f);
-		trace("Limiter depth is ^0",d);
+		//auto d = scaledFloat(diff.fCurrentValue,-12.f,3.f);
+		auto r = toFloat(diff.fCurrentValue);
+		auto l = scaledFloat(diff.fCurrentValue,-12.f,0.f);
+		auto p = pow(10.f,l*0.1f);
+		trace("Limiter scale is ^0 <=> ^1",r,l);
+		//trace("Limiter depth is ^0",d);
 		//leftLimiter.setLimit(d);
 		//rightLimiter.setLimit(d);
-		left.setLimiterLimit(d);
-		right.setLimiterLimit(d);
+		left.setLimiterLimit(p);
+		right.setLimiterLimit(p);
 		break;
 	}
 	case Tags::FILTER_ON: {
@@ -125,10 +129,10 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		filter.setActive(b);
 		break;
 	}
-	case Tags::FILTER_CUTOFF: {
-		auto c = scaledFloat(diff.fCurrentValue,0.f,0.95f);
-		trace("Filter cutoff is ^0",c);
-		filter.setParam(c);
+	case Tags::FILTER_Q: {
+		auto c = clampedFloat(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
+		trace("Filter Q is ^0",c);
+		filter.setQ(c);
 		break;
 	}
 	case kJBox_AudioInputConnected:

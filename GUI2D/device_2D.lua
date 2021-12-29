@@ -14,7 +14,7 @@ front = {
   window_display = {offset={1900,140},{path="Windows_6frames", frames=6 }},
   window   = { offset = {2200,140}, { path = "UpDown", frames = 3}},
   filter_on = {offset={2850,50}, {path="Button_53_2frames", frames=2 }},
-  filter_cutoff = {offset = { 2850, 135 },{ path = "Knob_01_63frames", frames = 63 }},
+  filter_q = {offset = { 2850, 135 },{ path = "Knob_01_63frames", frames = 63 }},
   limiter_on = {offset={3200,50}, {path="Button_53_2frames", frames=2 }},
   limiter = {offset = { 3200, 135 },{ path = "Knob_01_63frames", frames = 63 }},
   limiter_hs = {offset={3400,200}, {path="Button_53_2frames", frames=2 }},
