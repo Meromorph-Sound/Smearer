@@ -2,6 +2,7 @@ format_version = "2.0"
 
 local LightBlue = {26,130,196}
 local White = {255,255,255}
+local Yellow = {255,255,0}
 
 function simpleNode(name) 
   return { graphics = { node = name },value = "/custom_properties/"..name }
@@ -31,10 +32,30 @@ front = jbox.panel {
     jbox.analog_knob({ graphics = { node = "window_display" },value = "/custom_properties/window" }),
     jbox.toggle_button(simpleNode("filter_on")),
     jbox.analog_knob (simpleNode("filter_q")),
+    jbox.radio_button { graphics = { node = "filter_1" },value = "/custom_properties/filter_mode",index = 0},
+    jbox.radio_button { graphics = { node = "filter_2" },value = "/custom_properties/filter_mode",index = 1},
     jbox.toggle_button(simpleNode("limiter_on")),
     jbox.analog_knob (simpleNode("limiter")),
     jbox.toggle_button(simpleNode("limiter_hs")),
     
+    jbox.analog_knob {graphics = { node = "duration_min" },value = "/custom_properties/duration_min"},
+    jbox.analog_knob {graphics = { node = "duration_range" },value = "/custom_properties/duration_range"},
+    jbox.value_display { 
+      graphics = { node = "duration_min_display" },
+      value = "/custom_properties/duration_min",
+      text_color = {255,255,0},
+      text_style = "Small label font",
+      horizontal_justification = "right",
+      tooltip_template = jbox.ui_text("milliseconds")
+    },
+    jbox.value_display { 
+      graphics = { node = "duration_range_display" },
+      value = "/custom_properties/duration_range",
+      text_color = {255,255,0},
+      text_style = "Small label font",
+      horizontal_justification = "right",
+      tooltip_template = jbox.ui_text("milliseconds")
+    }
   }
 }
 back = jbox.panel { 

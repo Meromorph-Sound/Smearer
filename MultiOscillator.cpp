@@ -26,7 +26,7 @@ float32 Oscillator::value() {
 const uint32 OscillatorBank::MaxN = 500;
 
 float32 OscillatorBank::randomFreq() { return (lower+random()*width)*rate; }
-int32 OscillatorBank::randomLifetime() { return int32(597+20000*random()); }
+int32 OscillatorBank::randomLifetime() { return int32(minLifetime+lifetimeRange*random()); }
 
 float32 OscillatorBank::window(const float32 f) {
 	auto sf=fabs(f/width);
@@ -46,8 +46,7 @@ float32 OscillatorBank::window(const float32 f) {
 	}
 }
 
-OscillatorBank::OscillatorBank() : N(1), bank(MaxN), remainder(MaxN,0), windowType(WindowType::Triangular),
-		lower(0), width(1), rate(2*Pi/44100), jitterRate(0), jitterOn(false) {
+OscillatorBank::OscillatorBank() : bank(MaxN), remainder(MaxN,0), rate(2*Pi/44100) {
 	for(auto n=0;n<MaxN;n++) bank[n]=std::make_shared<Oscillator>(random());
 };
 

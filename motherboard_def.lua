@@ -14,7 +14,10 @@ local PropertyTags = {
   FILTER_Q = 6,
   LIMITER_ON = 7,
   LIMITER = 8,
-  LIMITER_HARD_SOFT = 9
+  LIMITER_HARD_SOFT = 9,
+  FILTER_MODE = 10,
+  DURATION_MIN = 20,
+  DURATION_RANGE = 21
 }
 
 local PropertyNames= {
@@ -26,7 +29,10 @@ local PropertyNames= {
   [6] = "filter_q",
   [7] = "limiter_on",
   [8] = "limiter",
-  [9] = "limiter_hs"
+  [9] = "limiter_hs",
+  [10]= "filter_mode",
+  [20]= "duration_min",
+  [21]= "duration_range"
 }
 
 local WindowNames= {
@@ -128,6 +134,13 @@ custom_properties = jbox.property_set{
           units={{decimals=3,template = jbox.ui_text("scale" )}}
         }
       },
+      ['filter_mode'] = jbox.number {
+		    property_tag = PropertyTags.FILTER_MODE,
+		    default = 0,
+        steps = 2,
+		    ui_name = textFor(PropertyTags.FILTER_ON),
+		    ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
+      },
       ['limiter_on'] = jbox.number {
 		    property_tag = PropertyTags.LIMITER_ON,
 		    default = 0,
@@ -144,12 +157,32 @@ custom_properties = jbox.property_set{
       },
       ['limiter'] = jbox.number {
 		    property_tag = PropertyTags.LIMITER,
-		    default = 0,
+		    default = 0.25,
 		    ui_name = textFor(PropertyTags.LIMITER),
 		    ui_type = jbox.ui_linear {
           min=LIMITER_MIN, 
           max=LIMITER_MAX, 
           units={{decimals=1,template = jbox.ui_text("decibels" )}}
+        }
+      },
+      ['duration_min'] = jbox.number {
+        property_tag = PropertyTags.DURATION_MIN,
+		    default = 0,
+		    ui_name = textFor(PropertyTags.DURATION_MIN),
+        ui_type = jbox.ui_linear {
+          min=0,
+          max=1000,
+          units={{decimals=0, template = jbox.ui_text("milliseconds")}}
+        }
+      },
+      ['duration_range'] = jbox.number {
+        property_tag = PropertyTags.DURATION_RANGE,
+		    default = 0.75,
+		    ui_name = textFor(PropertyTags.DURATION_RANGE),
+        ui_type = jbox.ui_linear {
+          min=0,
+          max=9000,
+          units={{decimals=0, template = jbox.ui_text("milliseconds")}}
         }
       }
 		}

@@ -16,15 +16,17 @@ namespace smearer {
 class Filter {
 
 private:
-	bool active;
-	float32 Q;
-	float32 omega;
-	float32 rho,rhoC;
-	float32 last;
-	float32 last2;
+	bool active = false;
+	float32 omega = 1;
+	float32 rho = 0;
+	float32 par0 = 0,par1 = 0,par2 = 0;
+	float32 last = 0,last2 = 0;
+	uint32 order = 1;
+
+	void setParameters();
 
 public:
-	Filter() : active(false), Q(1), omega(1), rho(0), rhoC(1), last(0), last2(0) {};
+	Filter() {};
 	virtual ~Filter() = default;
 	Filter(const Filter &other) = default;
 	Filter(Filter &&other) = default;
@@ -32,8 +34,9 @@ public:
 	Filter& operator=(Filter &&other) = default;
 
 	void setActive(const bool b);
-	void setQ(const float32 p);
-	void setWidth(const float32 f);
+	void setQ(const float32 q);
+	void setWidth(const float32 w);
+	void setOrder(uint32 o);
 
 	void filter(std::vector<float32> &vector);
 };

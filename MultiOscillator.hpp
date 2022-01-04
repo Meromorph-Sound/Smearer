@@ -52,15 +52,19 @@ class OscillatorBank {
 private:
 	const static uint32 MaxN;
 
-	uint32 N;
+	float32 minLifetime = 597.f;
+	float32 lifetimeRange = 20000.f;
+
+
+	uint32 N=1;
 	std::vector<std::shared_ptr<Oscillator>> bank;
 	std::vector<int32> remainder;
 	Random random;
-	WindowType windowType;
-	float32 lower, width;
+	WindowType windowType = Triangular;
+	float32 lower = 0, width = 1;
 	float32 rate;
-	float32 jitterRate;
-	bool jitterOn;
+	float32 jitterRate = 0;
+	bool jitterOn = false;
 
 
 	float32 randomFreq();
@@ -84,6 +88,9 @@ public:
 	void setWindow(const WindowType w) { windowType=w; }
 	void setJitterOn(const bool b) { jitterOn=b; };
 	void setJitterRate(const float32 j) { jitterRate=j; }
+
+	void setMinimumLifetime(const float32 m) { minLifetime=m; }
+	void setLifetimeRange(const float32 r) { lifetimeRange=r; }
 
 	float32 operator()();
 };

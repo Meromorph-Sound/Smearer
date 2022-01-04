@@ -12,9 +12,12 @@ texts = {
   ["window"] = "Window",
   ["filter_on"] = "Filter on/off",
   ["filter_q"] = "Filter Q",
+  ["filter_mode"] = "Filter order",
   ["limiter_on"] = "Limiter on/off",
   ["limiter"] = "Limiter cutoff",
   ["limiter_hs"] = "Limiter hard/soft",
+  ["duration_min"] = "Minimum duration",
+  ["duration_range"] = "Range of duration",
   
   ["IN"] = "IN",
   ["OUT"] = "OUT",
@@ -35,9 +38,12 @@ texts = {
   ["short_window"] = "Win",
   ["short_filter_on"] = "LP on",
   ["short_filter_q"] = "Q",
+  ["short_filter_mode"] = "order",
   ["short_limiter_on"] = "Lim on",
   ["short_limiter"] = "Lim",
   ["short_limiter_hs"] = "h/s",
+  ["short_duration_min"] = "Min d",
+  ["short_duration_range"] = "Rng d",
  
   
   ["shortest_half_width"] = "WID",
@@ -46,9 +52,12 @@ texts = {
   ["shortest_window"] = "WIN",
   ["shortest_filter_on"] = "LPON",
   ["shortest_filter_q"] = "Q",
+  ["shortest_filter_mode"] = "ORD",
   ["shortest_limiter_on"] = "LION",
   ["shortest_limiter"] = "LI",
   ["shortest_limiter_hs"] = "LIHS",
+  ["shortest_duration_min"] = "MIND",
+  ["shortest_duration_range"] = "RNGD",
   
   ["decibels"] = "^0 dB",
   ["degrees"] = "^0 deg",
@@ -57,5 +66,6 @@ texts = {
   ["osc"] = "oscillators",
   ["scale"] = "^0",
   ["linear_template"] = "^0",
+  ["milliseconds"] = "^0ms",
  
  }

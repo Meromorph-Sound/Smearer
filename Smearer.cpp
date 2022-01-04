@@ -68,6 +68,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		halfWidth = scaledFloat(diff.fCurrentValue,1.f,500.f);
 		trace("Setting half width to ^0",halfWidth);
 		oscillator.initialise(0,halfWidth);
+		filter.setWidth(halfWidth/sampleRate);
 		break;
 	}
 	case Tags::N_OSCILLATORS: {
@@ -133,6 +134,12 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto c = clampedFloat(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter Q is ^0",c);
 		filter.setQ(c);
+		break;
+	}
+	case Tags::FILTER_ORDER: {
+		auto c = toInt(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
+		trace("Filter order is ^0",c);
+		filter.setOrder(c);
 		break;
 	}
 	case kJBox_AudioInputConnected:

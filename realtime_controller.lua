@@ -2,7 +2,7 @@ format_version = "1.0"
 
 rtc_bindings = { 
   { source = "/environment/system_sample_rate", dest = "/global_rtc/init_instance" },
-  { source = "/environment/instance_id", dest = "/global_rtc/init_instance" },
+  { source = "/environment/instance_id", dest = "/global_rtc/init_instance" }
 }
 
 global_rtc = { 
@@ -10,7 +10,7 @@ global_rtc = {
   init_instance = function(source_property_path, instance_id)
     local new_no = jbox.make_native_object_rw("Instance", {instance_id})
     jbox.store_property("/custom_properties/instance", new_no);
-  end,
+  end
 }
 
 sample_rate_setup = { 
