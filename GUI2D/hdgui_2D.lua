@@ -4,8 +4,12 @@ local LightBlue = {26,130,196}
 local White = {255,255,255}
 local Yellow = {255,255,0}
 
+function prop(name)
+  return "/custom_properties/"..name
+end
+
 function simpleNode(name) 
-  return { graphics = { node = name },value = "/custom_properties/"..name }
+  return { graphics = { node = name },value = prop(name) }
 end
 
 front = jbox.panel { 
@@ -15,7 +19,7 @@ front = jbox.panel {
     jbox.sequence_fader{ 
       graphics = { node = "onoffbypass" },
       handle_size = 0,
-      value = "/custom_properties/builtin_onoffbypass" 
+      value = prop("builtin_onoffbypass") 
     },
     jbox.patch_browse_group { graphics = {node="patches"}},
     jbox.patch_name{
@@ -25,24 +29,24 @@ front = jbox.panel {
       center = false,
       text_style = "Bold LCD font",
     },
-    jbox.analog_knob { graphics = { node = "half_width" },value = "/custom_properties/half_width"},
-    jbox.analog_knob {graphics = { node = "n_oscillators" },value = "/custom_properties/n_oscillators"},
+    jbox.analog_knob { graphics = { node = "half_width" },value = prop("half_width")},
+    jbox.analog_knob {graphics = { node = "n_oscillators" },value = prop("n_oscillators")},
     jbox.analog_knob (simpleNode("scale_factor")),
     jbox.up_down_button(simpleNode("window")),
-    jbox.analog_knob({ graphics = { node = "window_display" },value = "/custom_properties/window" }),
+    jbox.analog_knob({ graphics = { node = "window_display" },value = prop("window") }),
     jbox.toggle_button(simpleNode("filter_on")),
     jbox.analog_knob (simpleNode("filter_q")),
-    jbox.radio_button { graphics = { node = "filter_1" },value = "/custom_properties/filter_mode",index = 0},
-    jbox.radio_button { graphics = { node = "filter_2" },value = "/custom_properties/filter_mode",index = 1},
+    jbox.radio_button { graphics = { node = "filter_1" },value = prop("filter_mode"),index = 0},
+    jbox.radio_button { graphics = { node = "filter_2" },value = prop("filter_mode"),index = 1},
     jbox.toggle_button(simpleNode("limiter_on")),
     jbox.analog_knob (simpleNode("limiter")),
     jbox.toggle_button(simpleNode("limiter_hs")),
     
-    jbox.analog_knob {graphics = { node = "duration_min" },value = "/custom_properties/duration_min"},
-    jbox.analog_knob {graphics = { node = "duration_range" },value = "/custom_properties/duration_range"},
+    jbox.analog_knob {graphics = { node = "duration_min" },value = prop("duration_min")},
+    jbox.analog_knob {graphics = { node = "duration_range" },value = prop("duration_range")},
     jbox.value_display { 
       graphics = { node = "duration_min_display" },
-      value = "/custom_properties/duration_min",
+      value = prop("duration_min"),
       text_color = {255,255,0},
       text_style = "Small label font",
       horizontal_justification = "right",
@@ -50,12 +54,14 @@ front = jbox.panel {
     },
     jbox.value_display { 
       graphics = { node = "duration_range_display" },
-      value = "/custom_properties/duration_range",
+      value = prop("duration_range"),
       text_color = {255,255,0},
       text_style = "Small label font",
       horizontal_justification = "right",
       tooltip_template = jbox.ui_text("milliseconds")
-    }
+    },
+    jbox.up_down_button(simpleNode("waveform")),
+    jbox.analog_knob({ graphics = { node = "waveform_display" },value = prop("waveform") }),
   }
 }
 back = jbox.panel { 

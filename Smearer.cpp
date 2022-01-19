@@ -14,31 +14,9 @@ namespace smearer {
 
 
 
-//uint32 Smearer::read(const port_t port,float32 *data) {
-//	auto ref = JBox_LoadMOMPropertyByTag(port, IN_BUFFER);
-//	auto length = std::min<int64>(JBox_GetDSPBufferInfo(ref).fSampleCount,BUFFER_SIZE);
-//	if(length>0) JBox_GetDSPBufferData(ref, 0, length, data);
-//	return static_cast<int32>(length);
-//}
-//
-//void Smearer::write(const port_t port,float32 *data) {
-//	auto refL = JBox_LoadMOMPropertyByTag(port, OUT_BUFFER);
-//	JBox_SetDSPBufferData(refL, 0, BUFFER_SIZE,data);
-//}
-//
-//
-//bool Smearer::isConnectedInput(const port_t port) {
-//	return true; // toBool(JBox_LoadMOMPropertyByTag(port,IN_CONN));
-//}
-//bool Smearer::isConnectedOutput(const port_t port) {
-//	return toBool(JBox_LoadMOMPropertyByTag(port,OUT_CONN));
-//}
+
 
 Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), left("Left"), right("Right") {
-//	inL  = JBox_GetMotherboardObjectRef("/audio_inputs/Left");
-//	inR  = JBox_GetMotherboardObjectRef("/audio_inputs/Right");
-//	outL = JBox_GetMotherboardObjectRef("/audio_outputs/Left");
-//	outR = JBox_GetMotherboardObjectRef("/audio_outputs/Right");
 }
 
 
@@ -137,9 +115,27 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		break;
 	}
 	case Tags::FILTER_ORDER: {
-		auto c = toInt(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
+		uint32 c = 1+toInt(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter order is ^0",c);
-		filter.setOrder(c);
+		//filter.setOrder(c);
+		break;
+	}
+	case Tags::DURATION_MIN: {
+		auto f = clampedFloat(diff.fCurrentValue);
+		oscillator.setMinimumLifetime(f);
+		break;
+	}
+	case Tags::DURATION_RANGE: {
+		auto f = scaledFloat(diff.fCurrentValue,0.f,9.f);
+		oscillator.setLifetimeRange(f);
+		break;
+	}
+	case Tags::OSCILLATOR_WAVEFORM: {
+		auto i = toInt(diff.fCurrentValue);
+		if(i>=0 && i<9) {
+			auto core = static_cast<OscillatorCores>(i);
+			oscillator.setCore(core);
+		}
 		break;
 	}
 	case kJBox_AudioInputConnected:
@@ -156,6 +152,11 @@ float32 Smearer::operator()(const float32 buf,const float32 mul) const {
 }
 
 void Smearer::process() {
+
+//	if(!initialised) {
+//		oscillator.setCore(OscillatorCores::Sinusoid);
+//		initialised=true;
+//	}
 
 
 	switch(state) {
@@ -185,14 +186,6 @@ void Smearer::process() {
 		//trace("Bypassed!");
 		left.bypass();
 		right.bypass();
-//		if(isConnectedInput(inL)) {
-//			read(inL,buffer.data());
-//			write(outL,buffer.data());
-//		}
-//		if(isConnectedInput(inR)) {
-//			read(inR,buffer.data());
-//			write(outR,buffer.data());
-//		}
 		break;
 	default:
 		break;

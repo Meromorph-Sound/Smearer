@@ -19,11 +19,13 @@ private:
 	bool active = false;
 	float32 omega = 1;
 	float32 rho = 0;
-	float32 par0 = 0,par1 = 0,par2 = 0;
+	float32 par0 = 0,par1 = 0;
 	float32 last = 0,last2 = 0;
 	uint32 order = 1;
 
 	void setParameters();
+	void filter1(std::vector<float32> &vector);
+	void filter2(std::vector<float32> &vector);
 
 public:
 	Filter() {};
@@ -39,6 +41,7 @@ public:
 	void setOrder(uint32 o);
 
 	void filter(std::vector<float32> &vector);
+
 };
 
 } /* namespace smearer */

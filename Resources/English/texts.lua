@@ -18,6 +18,7 @@ texts = {
   ["limiter_hs"] = "Limiter hard/soft",
   ["duration_min"] = "Minimum duration",
   ["duration_range"] = "Range of duration",
+  ["waveform"] = "Oscillator waveform",
   
   ["IN"] = "IN",
   ["OUT"] = "OUT",
@@ -30,6 +31,16 @@ texts = {
   ["hanning"] = "hanning",
   ["tanh"] = "tanh",
   ["gaussian"] = "gaussian",
+  
+  ['sinusoid'] = 'sinusoid',
+  ['triangle'] = 'triangle',
+  ['square'] = 'square',
+  ['sawtooth'] = 'sawtooth',
+  ['random']='random',
+  ['exponential'] = 'exponential',
+  ['step3'] = 'three steps',
+  ['step4'] = 'four steps',
+  ['stepupdown'] = 'step pyramid',
  
   
   ["short_half_width"] = "width",
@@ -44,6 +55,7 @@ texts = {
   ["short_limiter_hs"] = "h/s",
   ["short_duration_min"] = "Min d",
   ["short_duration_range"] = "Rng d",
+  ["short_waveform"] = "wave",
  
   
   ["shortest_half_width"] = "WID",
@@ -58,6 +70,7 @@ texts = {
   ["shortest_limiter_hs"] = "LIHS",
   ["shortest_duration_min"] = "MIND",
   ["shortest_duration_range"] = "RNGD",
+  ["shortest_waveform"] = "WAVE",
   
   ["decibels"] = "^0 dB",
   ["degrees"] = "^0 deg",
@@ -66,6 +79,6 @@ texts = {
   ["osc"] = "oscillators",
   ["scale"] = "^0",
   ["linear_template"] = "^0",
-  ["milliseconds"] = "^0ms",
+  ["milliseconds"] = "^0 ms",
  
  }

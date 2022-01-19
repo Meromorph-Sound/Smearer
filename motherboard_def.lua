@@ -17,7 +17,8 @@ local PropertyTags = {
   LIMITER_HARD_SOFT = 9,
   FILTER_MODE = 10,
   DURATION_MIN = 20,
-  DURATION_RANGE = 21
+  DURATION_RANGE = 21,
+  WAVEFORM = 22
 }
 
 local PropertyNames= {
@@ -32,7 +33,8 @@ local PropertyNames= {
   [9] = "limiter_hs",
   [10]= "filter_mode",
   [20]= "duration_min",
-  [21]= "duration_range"
+  [21]= "duration_range",
+  [22]= "waveform",
 }
 
 local WindowNames= {
@@ -42,6 +44,17 @@ local WindowNames= {
   [4] = 'hanning',
   [5] = 'hamming',
   [6] = 'gaussian'
+}
+local WaveformNames= {
+  [1] = 'sinusoid',
+  [2] = 'triangle',
+  [3] = 'square',
+  [4] = 'sawtooth',
+  [5] = 'random',
+  [6] = 'exponential',
+  [7] = 'step3',
+  [8] = 'step4',
+  [9] = 'stepupdown'
 }
 
 function  apply(fn,list)
@@ -71,6 +84,10 @@ function linearType()
       }
     }
   }
+end
+
+function samplesToTime(value,max)
+  return (value/44.1)/max
 end
 
 custom_properties = jbox.property_set{
@@ -138,7 +155,7 @@ custom_properties = jbox.property_set{
 		    property_tag = PropertyTags.FILTER_MODE,
 		    default = 0,
         steps = 2,
-		    ui_name = textFor(PropertyTags.FILTER_ON),
+		    ui_name = textFor(PropertyTags.FILTER_MODE),
 		    ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
       },
       ['limiter_on'] = jbox.number {
@@ -167,27 +184,37 @@ custom_properties = jbox.property_set{
       },
       ['duration_min'] = jbox.number {
         property_tag = PropertyTags.DURATION_MIN,
-		    default = 0,
+		    default = samplesToTime(597,1000),
 		    ui_name = textFor(PropertyTags.DURATION_MIN),
         ui_type = jbox.ui_linear {
-          min=0,
+          min=1,
           max=1000,
           units={{decimals=0, template = jbox.ui_text("milliseconds")}}
         }
       },
       ['duration_range'] = jbox.number {
         property_tag = PropertyTags.DURATION_RANGE,
-		    default = 0.75,
+		    default = samplesToTime(20000,9000),
 		    ui_name = textFor(PropertyTags.DURATION_RANGE),
         ui_type = jbox.ui_linear {
           min=0,
           max=9000,
           units={{decimals=0, template = jbox.ui_text("milliseconds")}}
         }
-      }
+      },
+      ['waveform'] = jbox.number {
+        default=0,
+        steps=9,
+        ui_name = textFor(PropertyTags.WAVEFORM),  
+        property_tag=PropertyTags.WAVEFORM,
+        ui_type = jbox.ui_selector(apply(jbox.ui_text,WaveformNames))
+      },
 		}
 	},
-	rtc_owner = { properties = { instance = jbox.native_object{} }},
+	rtc_owner = { properties = { 
+      instance = jbox.native_object{} ,
+      -- duration_display = jbox.string { }
+  }},
 	rt_owner = { properties = {} }
 }
 

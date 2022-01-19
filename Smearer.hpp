@@ -29,25 +29,45 @@ namespace smearer {
 
 //using port_t = TJBox_ObjectRef;
 
+/*
+ * local PropertyTags = {
+  HALF_WIDTH = 1,
+  N_OSCILLATORS = 2,
+  SCALE_FACTOR = 3,
+  WINDOW = 4,
+  FILTER_ON = 5,
+  FILTER_Q = 6,
+  LIMITER_ON = 7,
+  LIMITER = 8,
+  LIMITER_HARD_SOFT = 9,
+  FILTER_MODE = 10,
+  DURATION_MIN = 20,
+  DURATION_RANGE = 21
+}
+ */
 
 enum Tags : uint32 {
 	HALF_WIDTH=1,
 	N_OSCILLATORS=2,
 	SCALE_FACTOR=3,
-	LIMIT_ON=7,
-	LIMIT_MODE=9,
-	LIMIT_DEPTH=8,
 	WINDOW=4,
 	FILTER_ON=5,
 	FILTER_Q=6,
-	FILTER_ORDER=10
-	};
+	LIMIT_ON=7,
+	LIMIT_DEPTH=8,
+	LIMIT_MODE=9,
+	FILTER_ORDER=10,
+	DURATION_MIN=20,
+	DURATION_RANGE=21,
+	OSCILLATOR_WAVEFORM=22
+};
 
 class Smearer : public RackExtension {
 private:
 
 	State state = State::On;
 	bool stateChanged=true;
+	bool initialised=false;
 
 	float32 halfWidth=1.f;
 	float32 scaleFactor=0.8f;

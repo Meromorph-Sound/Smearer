@@ -25,10 +25,13 @@ front = {
   limiter = {offset = { 3200, 200 },{ path = "Knob_49_63frames", frames = 63 }},
   limiter_hs = {offset={3400,200}, {path="Button_53a_2frames", frames=2 }},
   
-  duration_min = {offset = { 2500, 450 },{ path = "Knob_49_63frames", frames = 63 }},
-  duration_range = {offset = { 2750, 450 },{ path = "Knob_49_63frames", frames = 63 }},
-  duration_min_display = {offset={2500,620},{path="Display_200_50_1frames"}},
-  duration_range_display = {offset={3000,620},{path="Display_200_50_1frames"}},
+  duration_min = {offset = { 1950,80 },{ path = "Knob_49_63frames", frames = 63 }},
+  duration_range = {offset = { 2300,80 },{ path = "Knob_49_63frames", frames = 63 }},
+  duration_min_display = {offset={1950,240},{path="Display_200_50_1frames"}},
+  duration_range_display = {offset={2300,240},{path="Display_200_50_1frames"}},
+  
+  waveform_display = {offset={1950,440}, {path="Display_51_9frames",frames=9}},
+  waveform   = { offset = {2140,440}, { path = "UpDown", frames = 3}},
   
 }
 back = {
