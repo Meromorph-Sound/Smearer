@@ -29,8 +29,8 @@ front = jbox.panel {
       center = false,
       text_style = "Bold LCD font",
     },
-    jbox.analog_knob { graphics = { node = "half_width" },value = prop("half_width")},
-    jbox.analog_knob {graphics = { node = "n_oscillators" },value = prop("n_oscillators")},
+    jbox.analog_knob (simpleNode("half_width" )),
+    jbox.analog_knob (simpleNode("n_oscillators")),
     jbox.analog_knob (simpleNode("scale_factor")),
     jbox.up_down_button(simpleNode("window")),
     jbox.analog_knob({ graphics = { node = "window_display" },value = prop("window") }),
@@ -42,8 +42,8 @@ front = jbox.panel {
     jbox.analog_knob (simpleNode("limiter")),
     jbox.toggle_button(simpleNode("limiter_hs")),
     
-    jbox.analog_knob {graphics = { node = "duration_min" },value = prop("duration_min")},
-    jbox.analog_knob {graphics = { node = "duration_range" },value = prop("duration_range")},
+    jbox.analog_knob (simpleNode('duration_min')),
+    jbox.analog_knob (simpleNode('duration_range')),
     jbox.value_display { 
       graphics = { node = "duration_min_display" },
       value = prop("duration_min"),
@@ -62,6 +62,8 @@ front = jbox.panel {
     },
     jbox.up_down_button(simpleNode("waveform")),
     jbox.analog_knob({ graphics = { node = "waveform_display" },value = prop("waveform") }),
+    jbox.analog_knob(simpleNode('silence')),
+    jbox.sequence_meter{ graphics = { node="silence_on" }, value=prop("silence_on")},
   }
 }
 back = jbox.panel { 

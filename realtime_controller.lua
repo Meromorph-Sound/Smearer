@@ -10,7 +10,7 @@ global_rtc = {
   init_instance = function(source_property_path, instance_id)
     local new_no = jbox.make_native_object_rw("Instance", {instance_id})
     jbox.store_property("/custom_properties/instance", new_no);
-  end
+  end,
 }
 
 sample_rate_setup = { 
@@ -40,6 +40,7 @@ rt_input_setup = {
    "/custom_properties/duration_min",
    "/custom_properties/duration_range",
    "/custom_properties/waveform",
+   "/custom_properties/silence",
 --  "/custom_properties/inGain",
 --   "/custom_properties/outGain",
   "/audio_inputs/Left/connected",

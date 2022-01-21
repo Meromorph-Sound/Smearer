@@ -33,6 +33,9 @@ front = {
   waveform_display = {offset={1950,440}, {path="Display_51_9frames",frames=9}},
   waveform   = { offset = {2140,440}, { path = "UpDown", frames = 3}},
   
+  silence = {offset = { 2300,440 },{ path = "Knob_49_63frames", frames = 63 }},
+  silence_on = {offset = { 2500,440 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
+  
 }
 back = {
   Bg = { {path = "back2U"} },

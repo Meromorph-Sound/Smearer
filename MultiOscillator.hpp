@@ -67,6 +67,7 @@ private:
 	std::vector<int32> remainder;
 
 	meromorph::Random random;
+	meromorph::Bernoulli probability;
 	WindowType windowType = Triangular;
 	std::shared_ptr<OscillatorCore> core;
 	float32 lower = 0, width = 1;
@@ -74,6 +75,7 @@ private:
 	float32 invRate;
 	float32 jitterRate = 0;
 	bool jitterOn = false;
+	bool silenceOn = false;
 
 
 	float32 randomFreq();
@@ -102,6 +104,9 @@ public:
 	void setLifetimeRange(const float32 r);
 
 	void setCore(const OscillatorCores c);
+
+	void setSilence(const float32 s);
+	bool isSilent() const { return silenceOn; }
 
 	float32 operator()();
 };

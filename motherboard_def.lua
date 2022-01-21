@@ -18,7 +18,9 @@ local PropertyTags = {
   FILTER_MODE = 10,
   DURATION_MIN = 20,
   DURATION_RANGE = 21,
-  WAVEFORM = 22
+  WAVEFORM = 22,
+  SILENCE = 23,
+  SILENCE_ON = 24
 }
 
 local PropertyNames= {
@@ -35,6 +37,8 @@ local PropertyNames= {
   [20]= "duration_min",
   [21]= "duration_range",
   [22]= "waveform",
+  [23]= "silence".
+  [24]= "silence_on"
 }
 
 local WindowNames= {
@@ -209,13 +213,32 @@ custom_properties = jbox.property_set{
         property_tag=PropertyTags.WAVEFORM,
         ui_type = jbox.ui_selector(apply(jbox.ui_text,WaveformNames))
       },
+      ['silence'] = jbox.number {
+        property_tag = PropertyTags.SILENCE,
+		    default = 0,
+		    ui_name = textFor(PropertyTags.SILENCE),
+        ui_type = jbox.ui_linear {
+          min=0,
+          max=1,
+          units={{decimals=0, template = jbox.ui_text("linear_template")}}
+        }
+      }
 		}
 	},
 	rtc_owner = { properties = { 
       instance = jbox.native_object{} ,
-      -- duration_display = jbox.string { }
   }},
-	rt_owner = { properties = {} }
+	rt_owner = { properties = {
+          silence_on = jbox.boolean {
+            property_tag = PropertyTags.SILENCE_ON,
+        default=false,
+        ui_name = textFor(PropertyTags.SILENCE_ON),
+        ui_type = jbox.ui_linear {
+          min=0,
+          max=1
+        }
+      }
+      } }
 }
 
 ui_groups = {}

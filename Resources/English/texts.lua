@@ -19,6 +19,7 @@ texts = {
   ["duration_min"] = "Minimum duration",
   ["duration_range"] = "Range of duration",
   ["waveform"] = "Oscillator waveform",
+  ["silence"] = "Silence Probability",
   
   ["IN"] = "IN",
   ["OUT"] = "OUT",
@@ -56,6 +57,7 @@ texts = {
   ["short_duration_min"] = "Min d",
   ["short_duration_range"] = "Rng d",
   ["short_waveform"] = "wave",
+  ["short_silence"] = "quiet",
  
   
   ["shortest_half_width"] = "WID",
@@ -71,6 +73,7 @@ texts = {
   ["shortest_duration_min"] = "MIND",
   ["shortest_duration_range"] = "RNGD",
   ["shortest_waveform"] = "WAVE",
+  ["shortest_silence"] = "QT",
   
   ["decibels"] = "^0 dB",
   ["degrees"] = "^0 deg",

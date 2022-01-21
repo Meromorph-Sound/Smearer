@@ -67,9 +67,7 @@ OscillatorBank::OscillatorBank() : bank(MaxN), cores(9), remainder(MaxN,0), samp
 int32 OscillatorBank::initOscillator(const uint32 n) {
 	auto freq = randomFreq();
 	auto lifetime = randomLifetime();
-	auto amp  = window(freq);
-	//trace("Window is ^0, value is ^1 at ^2",windowType,amp,freq);
-
+	auto amp = (silenceOn && (bool)probability) ? 0 : window(freq);
 	bank[n]->init(freq,amp);
 	return lifetime;
 }
@@ -108,6 +106,10 @@ void OscillatorBank::setLifetimeRange(const float32 r) {
 void OscillatorBank::setCore(const OscillatorCores c) {
 	core = cores.at(static_cast<uint32>(c));
 	//for(auto n=0;n<MaxN;n++) bank[n]->setCore(core);
+}
+void OscillatorBank::setSilence(const float32 s) {
+	silenceOn=s>0;
+	probability.setThreshold(s);
 }
 
 float32 OscillatorBank::operator()() {

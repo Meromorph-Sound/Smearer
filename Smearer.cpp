@@ -138,6 +138,12 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		}
 		break;
 	}
+	case Tags::SILENCE: {
+		auto s=clampedFloat(diff.fCurrentValue);
+		oscillator.setSilence(s);
+		set(oscillator.isSilent(),Tags::SILENCE_ON);
+		break;
+	}
 	case kJBox_AudioInputConnected:
 	case kJBox_AudioOutputConnected:
 		trace("Audio connected");
@@ -153,7 +159,10 @@ float32 Smearer::operator()(const float32 buf,const float32 mul) const {
 
 void Smearer::process() {
 
-//	if(!initialised) {
+	if(!initialised) {
+		oscillator.setSilence(0.5);
+		initialised=true;
+	}
 //		oscillator.setCore(OscillatorCores::Sinusoid);
 //		initialised=true;
 //	}
