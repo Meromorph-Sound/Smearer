@@ -141,7 +141,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	case Tags::SILENCE: {
 		auto s=clampedFloat(diff.fCurrentValue);
 		oscillator.setSilence(s);
-		set(oscillator.isSilent(),Tags::SILENCE_ON);
+		set(oscillator.isSilent() ? 1.f : 0.f,Tags::SILENCE_ON);
 		break;
 	}
 	case kJBox_AudioInputConnected:

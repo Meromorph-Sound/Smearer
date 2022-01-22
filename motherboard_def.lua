@@ -37,8 +37,7 @@ local PropertyNames= {
   [20]= "duration_min",
   [21]= "duration_range",
   [22]= "waveform",
-  [23]= "silence".
-  [24]= "silence_on"
+  [23]= "silence"
 }
 
 local WindowNames= {
@@ -229,14 +228,12 @@ custom_properties = jbox.property_set{
       instance = jbox.native_object{} ,
   }},
 	rt_owner = { properties = {
-          silence_on = jbox.boolean {
+          silence_on = jbox.number {
             property_tag = PropertyTags.SILENCE_ON,
-        default=false,
-        ui_name = textFor(PropertyTags.SILENCE_ON),
-        ui_type = jbox.ui_linear {
-          min=0,
-          max=1
-        }
+        default=0,
+        steps=2,
+        ui_name = textFor(PropertyTags.SILENCE),
+        ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
       }
       } }
 }
