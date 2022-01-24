@@ -11,8 +11,17 @@
 namespace meromorph {
 namespace smearer {
 
+void Oscillator::init(const float32 d,const float32 a) {
+	increment=(d-delta)/(float32)SmoothingPeriod;
+	remainder=SmoothingPeriod;
+	amplitude=a;
+}
 
 void Oscillator::step() {
+	if(remainder>0) {
+		delta+=increment;
+		remainder--;
+	}
 	phase+=delta;
 	if(phase>=2*Pi) phase-=2*Pi;
 }
@@ -73,7 +82,7 @@ int32 OscillatorBank::initOscillator(const uint32 n) {
 }
 
 void OscillatorBank::reset() {
-	for(auto n=0;n<MaxN;n++) bank[n]->reset(random());
+	for(auto n=0;n<MaxN;n++) bank[n]->reset(random()*TwoPi);
 }
 
 void OscillatorBank::jitter(const float32 limit) {

@@ -29,7 +29,13 @@ enum WindowType : uint32 {
 
 
 
-struct Oscillator {
+class Oscillator {
+private:
+	const static uint32 SmoothingPeriod=5;
+	float32 increment=0.f;
+	uint32 remainder=0;
+
+public:
 
 	float32 phase;
 	float32 delta;
@@ -47,7 +53,7 @@ struct Oscillator {
 
 	void reset(const float32 phi0 = 0) { phase=phi0; }
 	void jitter(const float32 j=0.01) { phase+=j; }
-	void init(const float32 d,const float32 a) { delta=d; amplitude=a; }
+	void init(const float32 d,const float32 a);
 
 	void step();
 	float32 value();
