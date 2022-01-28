@@ -12,6 +12,7 @@ front = {
   half_width = {offset = { 500, 160 },{ path = "Knob_14_63frames", frames = 63 }},
   n_oscillators = {offset = { 750, 160 },{ path = "Knob_14_63frames", frames = 63 }},
   scale_factor = {offset = { 1000, 160 },{ path = "Knob_14_63frames", frames = 63 }},
+  mixer = {offset = { 500, 440 },{ path = "Fader_09_60frames", frames = 60 }},
   
   window_display = {offset={1250,175},{path="Windows_6frames", frames=6 }},
   window   = { offset = {1705,187}, { path = "UpDown", frames = 3}},

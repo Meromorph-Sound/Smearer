@@ -31,8 +31,9 @@ enum WindowType : uint32 {
 
 class Oscillator {
 private:
-	const static uint32 SmoothingPeriod=5;
+	uint32 SmoothingPeriod=250;
 	float32 increment=0.f;
+	float32 amplitudeIncrement=0.f;
 	uint32 remainder=0;
 
 public:
@@ -43,7 +44,8 @@ public:
 
 
 
-	Oscillator(const float32 phi0) : phase(phi0), delta(0), amplitude(1.0) {};
+	Oscillator(const float32 phi0) : phase(phi0), delta(0), amplitude(1.0) {
+	};
 	Oscillator() : Oscillator(0) {};
 	virtual ~Oscillator() = default;
 	Oscillator(const Oscillator &) = default;
@@ -54,6 +56,7 @@ public:
 	void reset(const float32 phi0 = 0) { phase=phi0; }
 	void jitter(const float32 j=0.01) { phase+=j; }
 	void init(const float32 d,const float32 a);
+	void silence();
 
 	void step();
 	float32 value();

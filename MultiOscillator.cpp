@@ -12,15 +12,21 @@ namespace meromorph {
 namespace smearer {
 
 void Oscillator::init(const float32 d,const float32 a) {
-	increment=(d-delta)/(float32)SmoothingPeriod;
-	remainder=SmoothingPeriod;
-	amplitude=a;
+	auto inc=(d-delta);
+	if(inc<0) inc+=TwoPi;
+	increment=inc/(float)SmoothingPeriod;
+	remainder=0;
+	amplitudeIncrement=(a-amplitude)/(float)SmoothingPeriod;
 }
 
+void Oscillator::silence() { init(delta,0); }
+
 void Oscillator::step() {
-	if(remainder>0) {
+	if(remainder<SmoothingPeriod) {
+		amplitude+=amplitudeIncrement;
 		delta+=increment;
-		remainder--;
+		//trace("Reminder is ^0 delta is ^1",remainder,delta);
+		remainder++;
 	}
 	phase+=delta;
 	if(phase>=2*Pi) phase-=2*Pi;
@@ -74,10 +80,16 @@ OscillatorBank::OscillatorBank() : bank(MaxN), cores(9), remainder(MaxN,0), samp
 }
 
 int32 OscillatorBank::initOscillator(const uint32 n) {
-	auto freq = randomFreq();
+
 	auto lifetime = randomLifetime();
-	auto amp = (silenceOn && (bool)probability) ? 0 : window(freq);
-	bank[n]->init(freq,amp);
+	if(silenceOn && (bool)probability) {
+		bank[n]->silence();
+	}
+	else {
+		auto freq = randomFreq();
+		auto amp =  window(freq);
+		bank[n]->init(freq,amp);
+	}
 	return lifetime;
 }
 

@@ -20,7 +20,8 @@ local PropertyTags = {
   DURATION_RANGE = 21,
   WAVEFORM = 22,
   SILENCE = 23,
-  SILENCE_ON = 24
+  SILENCE_ON = 24,
+  MIXER = 30
 }
 
 local PropertyNames= {
@@ -37,7 +38,8 @@ local PropertyNames= {
   [20]= "duration_min",
   [21]= "duration_range",
   [22]= "waveform",
-  [23]= "silence"
+  [23]= "silence",
+  [30]= "mixer"
 }
 
 local WindowNames= {
@@ -126,8 +128,18 @@ custom_properties = jbox.property_set{
 		    ui_name = textFor(PropertyTags.SCALE_FACTOR),
 		    ui_type = jbox.ui_linear {
           min=0, 
-          max=2, 
+          max=1, 
           units={{decimals=1,template = jbox.ui_text("scale" )}}
+        }
+      },
+      ['mixer'] = jbox.number { 
+        property_tag = PropertyTags.MIXER,
+		    default = 0,
+		    ui_name = textFor(PropertyTags.MIXER),
+		    ui_type = jbox.ui_linear {
+          min=-1, 
+          max=1, 
+          units={{decimals=2,template = jbox.ui_text("scale" )}}
         }
       },
       ['window'] = jbox.number {

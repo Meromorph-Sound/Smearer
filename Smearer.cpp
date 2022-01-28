@@ -172,7 +172,7 @@ void Smearer::process() {
 	case State::On: {
 		//trace("on!");
 		auto factor=scaleFactor;
-		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=1.f+factor*oscillator();
+		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=(1.f-factor)+factor*oscillator();
 		filter.filter(osc);
 
 		left.process(osc.data());

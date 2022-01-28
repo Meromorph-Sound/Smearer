@@ -32,6 +32,12 @@ front = jbox.panel {
     jbox.analog_knob (simpleNode("half_width" )),
     jbox.analog_knob (simpleNode("n_oscillators")),
     jbox.analog_knob (simpleNode("scale_factor")),
+    jbox.sequence_fader { 
+      graphics = {node="mixer"}, 
+      value=prop("mixer"),
+      orientation = "horizontal",
+      handle_size = 0
+    },
     jbox.up_down_button(simpleNode("window")),
     jbox.analog_knob({ graphics = { node = "window_display" },value = prop("window") }),
     jbox.toggle_button(simpleNode("filter_on")),
