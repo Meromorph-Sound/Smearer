@@ -11,7 +11,7 @@
 #include "base.hpp"
 #include "Random.hpp"
 #include "OscillatorCore.hpp"
-
+#include "Oscillator.hpp"
 
 namespace meromorph {
 namespace smearer {
@@ -25,42 +25,6 @@ enum WindowType : uint32 {
 	Gaussian = 5
 };
 
-
-
-
-
-class Oscillator {
-private:
-	uint32 SmoothingPeriod=250;
-	float32 increment=0.f;
-	float32 amplitudeIncrement=0.f;
-	uint32 remainder=0;
-
-public:
-
-	float32 phase;
-	float32 delta;
-	float32 amplitude;
-
-
-
-	Oscillator(const float32 phi0) : phase(phi0), delta(0), amplitude(1.0) {
-	};
-	Oscillator() : Oscillator(0) {};
-	virtual ~Oscillator() = default;
-	Oscillator(const Oscillator &) = default;
-	Oscillator &operator=(const Oscillator &) = default;
-
-
-
-	void reset(const float32 phi0 = 0) { phase=phi0; }
-	void jitter(const float32 j=0.01) { phase+=j; }
-	void init(const float32 d,const float32 a);
-	void silence();
-
-	void step();
-	float32 value();
-};
 
 class OscillatorBank {
 private:
@@ -92,7 +56,7 @@ private:
 	float32 window(const float32 f);
 
 	int32 initOscillator(const uint32);
-	void jitter(const float32 limit=0.01);
+	void jitter(const float32 limit=0.1f);
 
 public:
 	OscillatorBank();

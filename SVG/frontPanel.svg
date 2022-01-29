@@ -121,8 +121,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35"
-     inkscape:cx="1922.054"
-     inkscape:cy="601.07895"
+     inkscape:cx="1756.3397"
+     inkscape:cy="501.07895"
      inkscape:document-units="mm"
      inkscape:current-layer="layer3"
      inkscape:document-rotation="0"
@@ -130,8 +130,8 @@
      inkscape:snap-global="false"
      inkscape:window-width="2093"
      inkscape:window-height="1027"
-     inkscape:window-x="2263"
-     inkscape:window-y="301"
+     inkscape:window-x="2188"
+     inkscape:window-y="129"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -146,11 +146,11 @@
     </rdf:RDF>
   </metadata>
   <g
+     sodipodi:insensitive="true"
      style="display:inline"
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="Background"
-     sodipodi:insensitive="true">
+     inkscape:label="Background">
     <rect
        style="fill:#41416c;fill-opacity:0.898039;stroke-width:5.52144;stroke-linecap:round;stroke-miterlimit:3.7"
        id="rect833"
@@ -159,12 +159,19 @@
        x="0"
        y="0" />
     <rect
-       y="431.42856"
+       y="151.42856"
        x="1205.7142"
-       height="228.57143"
+       height="508.57141"
        width="705.71429"
        id="rect3678"
-       style="display:inline;opacity:1;fill:#666666;fill-opacity:0.32551318;stroke:none;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none" />
+       style="display:inline;opacity:1;fill:#666666;fill-opacity:0.325513;stroke:none;stroke-width:11.9331;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none" />
+    <rect
+       style="display:inline;opacity:1;fill:#666666;fill-opacity:0.325513;stroke:none;stroke-width:13.5276;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none"
+       id="rect3844"
+       width="714.28571"
+       height="645.71429"
+       x="1917.8571"
+       y="20.000004" />
   </g>
   <g
      style="display:inline"
@@ -289,48 +296,14 @@
        y="-408.61841" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
-       x="3285.9541"
-       y="95.559807"
-       id="text2933-1-8-9-3"><tspan
-         sodipodi:role="line"
-         id="tspan2931-40-7-1-7"
-         x="3285.9541"
-         y="95.559807"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">On/off</tspan></text>
-    <text
-       id="text2933-1-8-9-3-4"
-       y="247.31754"
-       x="3479.8154"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
-         y="247.31754"
-         x="3479.8154"
-         id="tspan2931-40-7-1-7-8"
-         sodipodi:role="line">Hard / soft</tspan></text>
-    <text
-       transform="rotate(-90)"
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
-       x="-252.92813"
-       y="3175.7185"
-       id="text2933-1-8-9-9"><tspan
-         sodipodi:role="line"
-         id="tspan2931-40-7-1-1"
-         x="-252.92813"
-         y="3175.7185"
-         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:40px;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Limit</tspan></text>
-    <text
-       xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;image-rendering:auto"
-       x="1433.1156"
-       y="376.51245"
+       x="2901.687"
+       y="493.6553"
        id="text2933-1-8-9-9-30-3"><tspan
          sodipodi:role="line"
          id="tspan2931-40-7-1-1-6-8"
-         x="1433.1156"
-         y="376.51245"
+         x="2901.687"
+         y="493.6553"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">Window</tspan></text>
     <g
        transform="translate(-798.94501,17.789063)"
@@ -390,12 +363,154 @@
          x="1465.1064"
          id="tspan3657"
          sodipodi:role="line">Order</tspan></text>
+    <text
+       id="text3849"
+       y="55.395863"
+       x="2007.8434"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.66669999999999874px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffff00;"
+       xml:space="preserve"><tspan
+         id="tspan5114"
+         sodipodi:role="line">Segment duration</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;image-rendering:auto"
+       x="2106.8384"
+       y="142.59999"
+       id="text2933-1-8-9-9-30-9"><tspan
+         y="142.59999"
+         x="2106.8384"
+         id="tspan3786"
+         sodipodi:role="line">Minimum</tspan><tspan
+         y="192.59999"
+         x="2106.8384"
+         id="tspan3788"
+         sodipodi:role="line">(ms)</tspan></text>
+    <text
+       id="text2933-1-8-9-9-30-9-4"
+       y="142.59999"
+       x="2456.8384"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;image-rendering:auto"
+       xml:space="preserve"><tspan
+         y="142.59999"
+         x="2456.8384"
+         id="tspan3814"
+         sodipodi:role="line">Spread</tspan><tspan
+         y="192.59999"
+         x="2456.8384"
+         id="tspan3816"
+         sodipodi:role="line">(ms)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.66669999999999874px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffff00"
+       x="1267.1293"
+       y="427.45236"
+       id="text3849-5"><tspan
+         sodipodi:role="line"
+         id="tspan3847-1"
+         x="1267.1293"
+         y="427.45236">Filter parameters</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.6667px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;fill:#ffff00"
+       x="2703.0088"
+       y="64.595261"
+       id="text3849-5-8-9"><tspan
+         y="64.595261"
+         x="2703.0088"
+         id="tspan5063"
+         sodipodi:role="line">Oscillator waveform</tspan></text>
+    <text
+       id="text3849-5-8"
+       y="427.45236"
+       x="1966.1523"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.66669999999999874px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffff00"
+       xml:space="preserve"><tspan
+         y="427.45236"
+         x="1966.1523"
+         id="tspan5037"
+         sodipodi:role="line">Silent segments</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:37.33330000000000126px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;image-rendering:auto"
+       x="2103.5513"
+       y="532.13202"
+       id="text2933-1-8-9-9-30-37"><tspan
+         y="532.13202"
+         x="2103.5513"
+         id="tspan5039"
+         sodipodi:role="line">Probability</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.66669999999999874px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffff00"
+       x="2327.541"
+       y="428.98141"
+       id="text3849-5-8-6"><tspan
+         y="428.98141"
+         x="2327.541"
+         id="tspan5166"
+         sodipodi:role="line">Glitches</tspan></text>
+    <text
+       id="text2933-1-8-9-9-30-37-7"
+       y="529.97498"
+       x="2464.9399"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:37.33330000000000126px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;image-rendering:auto"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan5039-3"
+         x="2464.9399"
+         y="529.97498">Probability</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       x="1338"
+       y="247.64066"
+       id="text2933-1-8-9-3"><tspan
+         sodipodi:role="line"
+         id="tspan2931-40-7-1-7"
+         x="1338"
+         y="247.64066"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff">On/off</tspan></text>
+    <text
+       id="text2933-1-8-9-3-4"
+       y="317.64069"
+       x="1337.5757"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;image-rendering:auto"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff"
+         y="317.64069"
+         x="1337.5757"
+         id="tspan2931-40-7-1-7-8"
+         sodipodi:role="line">Hard / soft</tspan></text>
+    <text
+       xml:space="preserve"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;image-rendering:auto"
+       x="1776.5187"
+       y="253.96066"
+       id="text2933-1-8-9-9"><tspan
+         y="253.96066"
+         x="1776.5187"
+         id="tspan5168"
+         sodipodi:role="line">Limit</tspan><tspan
+         y="303.96066"
+         x="1776.5187"
+         id="tspan5170"
+         sodipodi:role="line">(db)</tspan></text>
+    <text
+       id="text3849-5-5"
+       y="192.29335"
+       x="1272.5209"
+       style="display:inline;opacity:1;font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.66669999999999874px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffff00"
+       xml:space="preserve"><tspan
+         y="192.29335"
+         x="1272.5209"
+         id="tspan5190"
+         sodipodi:role="line">Limiter</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Controls"
-     style="display:inline;opacity:1">
+     style="display:none;opacity:1">
     <rect
        style="display:inline;opacity:0.81;fill:#ff0000;fill-opacity:0.9;stroke:none;stroke-width:3.77953;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="onOffBypass"
@@ -422,14 +537,6 @@
        label="GrowthRate" />
     <rect
        label="GrowthRate"
-       y="135"
-       x="3200"
-       height="180"
-       width="180.037"
-       id="rect837-8"
-       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:4.17177;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto" />
-    <rect
-       label="GrowthRate"
        y="160"
        x="750"
        height="179.99997"
@@ -453,19 +560,27 @@
        id="rect2709"
        style="display:inline;fill:#ff0000;fill-opacity:0.898039;stroke-width:4;stroke-linecap:round;stroke-linejoin:round" />
     <rect
-       y="200"
-       x="3400"
+       label="GrowthRate"
+       y="195"
+       x="1620"
+       height="145"
+       width="145"
+       id="rect837-8"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:3.36024;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto" />
+    <rect
+       y="270"
+       x="1250"
        height="65"
        width="65"
        id="rect1925"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round" />
     <rect
-       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"
        id="rect1925-6"
        width="65"
        height="65"
-       x="3200"
-       y="50" />
+       x="1250"
+       y="200" />
     <rect
        style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke-width:3.36024;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto"
        id="rect837-8-2"
@@ -500,46 +615,15 @@
        id="rect1844"
        width="450"
        height="150"
-       x="1250"
-       y="175.00002" />
+       x="2710"
+       y="290" />
     <rect
-       y="187.50002"
-       x="1705"
+       y="305"
+       x="3165"
        height="125"
        width="65"
        id="rect3633"
        style="fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:5.71988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none" />
-    <rect
-       style="display:inline;fill:#666666;fill-opacity:0.325513;stroke:none;stroke-width:8.99843;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none"
-       id="rect3844"
-       width="714.28571"
-       height="285.71426"
-       x="1917.8571"
-       y="20.000004" />
-    <text
-       id="text3849"
-       y="55.395863"
-       x="2007.8434"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:condensed;font-size:42.6667px;line-height:1.25;font-family:Futura;-inkscape-font-specification:'Futura, Medium Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#ffff00"
-       xml:space="preserve"><tspan
-         y="55.395863"
-         x="2007.8434"
-         id="tspan3847"
-         sodipodi:role="line">Oscillator segment duration parameters</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#ffffff;image-rendering:auto"
-       x="2106.8384"
-       y="142.59999"
-       id="text2933-1-8-9-9-30-9"><tspan
-         y="142.59999"
-         x="2106.8384"
-         id="tspan3786"
-         sodipodi:role="line">Minimum</tspan><tspan
-         y="192.59999"
-         x="2106.8384"
-         id="tspan3788"
-         sodipodi:role="line">(ms)</tspan></text>
     <rect
        label="GrowthRate"
        y="80.000023"
@@ -548,20 +632,6 @@
        width="145"
        id="rect837-8-2-3"
        style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:3.36024;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto" />
-    <text
-       id="text2933-1-8-9-9-30-9-4"
-       y="142.59999"
-       x="2456.8384"
-       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Avenir Next';-inkscape-font-specification:'Avenir Next, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#ffffff;image-rendering:auto"
-       xml:space="preserve"><tspan
-         y="142.59999"
-         x="2456.8384"
-         id="tspan3814"
-         sodipodi:role="line">Spread</tspan><tspan
-         y="192.59999"
-         x="2456.8384"
-         id="tspan3816"
-         sodipodi:role="line">(ms)</tspan></text>
     <rect
        style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:3.36024;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto"
        id="rect837-8-2-3-7"
@@ -584,5 +654,63 @@
        height="50"
        x="2299.9998"
        y="240.00002" />
+    <rect
+       y="95"
+       x="2710"
+       height="140"
+       width="180"
+       id="rect4938"
+       style="fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:7.0993;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none" />
+    <rect
+       style="display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:5.71988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none"
+       id="rect3633-3"
+       width="65"
+       height="125"
+       x="2895"
+       y="103" />
+    <rect
+       y="395"
+       x="2210"
+       height="40"
+       width="40"
+       id="rect5041"
+       style="display:inline;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:10.7772;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none" />
+    <rect
+       label="GrowthRate"
+       y="450"
+       x="1949.9999"
+       height="145"
+       width="145"
+       id="rect837-8-2-3-7-5"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:3.36024;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto" />
+    <rect
+       y="610"
+       x="1949.9999"
+       height="50"
+       width="300"
+       id="rect3818-6-0"
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:8.08291;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none" />
+    <rect
+       style="display:inline;fill:#ffff00;fill-opacity:1;stroke:none;stroke-width:10.7772;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none"
+       id="rect5041-6"
+       width="40"
+       height="40"
+       x="2560"
+       y="395" />
+    <rect
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke-width:3.36024;stroke-linecap:round;stroke-miterlimit:3.7;image-rendering:auto"
+       id="rect837-8-2-3-7-5-4"
+       width="145"
+       height="145"
+       x="2300"
+       y="450"
+       label="GrowthRate" />
+    <rect
+       style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:8.08291;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none"
+       id="rect3818-6-0-7"
+       width="300"
+       height="50"
+       x="2300"
+       y="610" />
   </g>
 </svg>

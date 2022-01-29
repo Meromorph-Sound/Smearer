@@ -14,28 +14,33 @@ front = {
   scale_factor = {offset = { 1000, 160 },{ path = "Knob_14_63frames", frames = 63 }},
   mixer = {offset = { 500, 440 },{ path = "Fader_09_60frames", frames = 60 }},
   
-  window_display = {offset={1250,175},{path="Windows_6frames", frames=6 }},
-  window   = { offset = {1705,187}, { path = "UpDown", frames = 3}},
+  window_display = {offset={2710,290},{path="Windows_6frames", frames=6 }},
+  window   = { offset = {3165,305}, { path = "UpDown", frames = 3}},
   
   filter_on = {offset={1250,440}, {path="Button_53a_2frames", frames=2 }},
   filter_1 = {offset  ={1250, 550 }, {path="Button_102_2frames",frames=2}},
   filter_2 = {offset  ={1350, 550 }, {path="Button_103_2frames",frames=2}},
   filter_q = {offset = { 1620, 475 },{ path = "Knob_49_63frames", frames = 63 }},
   
-  limiter_on = {offset={3200,50}, {path="Button_53_2frames", frames=2 }},
-  limiter = {offset = { 3200, 200 },{ path = "Knob_49_63frames", frames = 63 }},
-  limiter_hs = {offset={3400,200}, {path="Button_53a_2frames", frames=2 }},
+  limiter_on = {offset={1250,190}, {path="Button_53a_2frames", frames=2 }},
+  limiter = {offset = { 1620, 195 },{ path = "Knob_49_63frames", frames = 63 }},
+  limiter_hs = {offset={1250,310}, {path="Button_53a_2frames", frames=2 }},
   
   duration_min = {offset = { 1950,80 },{ path = "Knob_49_63frames", frames = 63 }},
   duration_range = {offset = { 2300,80 },{ path = "Knob_49_63frames", frames = 63 }},
   duration_min_display = {offset={1950,240},{path="Display_200_50_1frames"}},
   duration_range_display = {offset={2300,240},{path="Display_200_50_1frames"}},
   
-  waveform_display = {offset={1950,440}, {path="Display_51_9frames",frames=9}},
-  waveform   = { offset = {2140,440}, { path = "UpDown", frames = 3}},
+  waveform_display = {offset={2710,95}, {path="Display_51_9frames",frames=9}},
+  waveform   = { offset = {2895,103}, { path = "UpDown", frames = 3}},
   
-  silence = {offset = { 2300,440 },{ path = "Knob_49_63frames", frames = 63 }},
-  silence_on = {offset = { 2500,440 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
+  silence = {offset = { 1950,450 },{ path = "Knob_49_63frames", frames = 63 }},
+  silence_on = {offset = { 2210,395 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
+  silence_display = {offset={1950,610},{path="Display_200_50_1frames"}},
+  
+  glitch = {offset = { 2300,450 },{ path = "Knob_49_63frames", frames = 63 }},
+  glitch_on = {offset = { 2560,395 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
+  glitch_display = {offset={2300,610},{path="Display_200_50_1frames"}},
   
 }
 back = {

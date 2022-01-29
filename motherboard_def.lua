@@ -231,7 +231,7 @@ custom_properties = jbox.property_set{
         ui_type = jbox.ui_linear {
           min=0,
           max=1,
-          units={{decimals=0, template = jbox.ui_text("linear_template")}}
+          units={{decimals=2, template = jbox.ui_text("linear_template")}}
         }
       }
 		}

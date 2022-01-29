@@ -70,6 +70,14 @@ front = jbox.panel {
     jbox.analog_knob({ graphics = { node = "waveform_display" },value = prop("waveform") }),
     jbox.analog_knob(simpleNode('silence')),
     jbox.sequence_meter{ graphics = { node="silence_on" }, value=prop("silence_on")},
+    jbox.value_display { 
+      graphics = { node = "silence_display" },
+      value = prop("silence"),
+      text_color = {255,255,0},
+      text_style = "Small label font",
+      horizontal_justification = "right",
+      tooltip_template = jbox.ui_text("scale")
+    },
   }
 }
 back = jbox.panel { 
