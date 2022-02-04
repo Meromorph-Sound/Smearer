@@ -23,6 +23,7 @@ Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), left("Left"), right("R
 
 void Smearer::reset() {
 	oscillator.reset();
+	wasReseeded=false;
 }
 
 void Smearer::setSampleRate(const float32 rate) {
@@ -155,6 +156,20 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		oscillator.setSmoothing((uint32)s);
 		break;
 	}
+
+	case Tags::RESEED: { // momentary boolean
+		auto b = toBool(diff.fCurrentValue);
+		if(b!=wasReseeded) {
+			if(b) oscillator.reseed(reseedValue);
+			wasReseeded=b;
+		}
+		break;
+	}
+	case Tags::RESEED_VALUE: {
+		reseedValue=toFloat(diff.fCurrentValue);
+		break;
+	}
+
 	case kJBox_AudioInputConnected:
 	case kJBox_AudioOutputConnected:
 		trace("Audio connected");
@@ -171,7 +186,8 @@ float32 Smearer::operator()(const float32 buf,const float32 mul) const {
 void Smearer::process() {
 
 	if(!initialised) {
-		oscillator.setSilence(0.5);
+		oscillator.reseed(reseedValue);
+		//oscillator.setSilence(0.5);
 		initialised=true;
 	}
 //		oscillator.setCore(OscillatorCores::Sinusoid);

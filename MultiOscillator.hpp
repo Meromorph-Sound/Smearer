@@ -86,9 +86,10 @@ public:
 	void setSmoothing(const uint32 s);
 
 	float32 operator()();
+
+	void reseed(const float32 f=Pi);
+
 };
-
-
 
 } /* namespace smearer */
 } /* namespace meromorph */

@@ -32,8 +32,7 @@ protected:
 	const static float32 I32Max;
 	const static uint64 sconst[];
 
-
-	static uint64 seed(const uint64 n);
+	void reseed(uint64 n);
 	float32 nextFloat() { return float32(rng())/I32Max; }
 
 	virtual float32 next() = 0;
@@ -44,6 +43,9 @@ public:
 
 	void init(const uint64 n);
 };
+
+uint64 asInteger(const float32 ff);
+uint64 generateSeed(const uint64 initial);
 
 class Random : public RNDBase {
 	float32 lower;

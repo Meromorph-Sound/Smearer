@@ -70,6 +70,7 @@ int32 OscillatorBank::initOscillator(const uint32 n) {
 
 void OscillatorBank::reset() {
 	for(auto n=0;n<MaxN;n++) bank[n]->reset(random()*TwoPi);
+	reseed();
 }
 
 
@@ -127,7 +128,12 @@ float32 OscillatorBank::operator()() {
 	return out;
 }
 
-
+void OscillatorBank::reseed(const float f) {
+	uint64 n=(asInteger(lower+f) + asInteger(width-f))^asInteger(invRate) + asInteger(sampleRate)^asInteger(jitterRate)-N;
+	random.reseed(n);
+	probability.reseed(n+asInteger(random()));
+	probabilityJ.reseed(n-asInteger(random()));
+}
 
 } /* namespace smearer */
 } /* namespace meromorph */

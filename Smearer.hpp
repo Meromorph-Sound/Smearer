@@ -64,7 +64,9 @@ enum Tags : uint32 {
 	SILENCE_ON=24,
 	JITTER=25,
 	JITTER_ON=26,
-	SMOOTHING=27
+	SMOOTHING=27,
+	RESEED=40,
+	RESEED_VALUE=41
 };
 
 class Smearer : public RackExtension {
@@ -78,6 +80,9 @@ private:
 	float32 scaleFactor=0.8f;
 	uint32 nOscillators=10;
 	float32 sampleRate=44100.f;
+
+	bool wasReseeded=false;
+	float32 reseedValue = Pi;
 
 	//port_t inL,inR;
 	//port_t outL,outR;
