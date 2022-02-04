@@ -22,6 +22,9 @@ texts = {
   ["waveform"] = "Oscillator waveform",
   ["silence"] = "Silence Probability",
   ["silence_on"] = "Silence On",
+  ["jitter"] = "Jitter Probability",
+  ["jitter_on"] = "Jitter On",
+  ["smoothing"] = "Smoothing length",
   
   ["IN"] = "IN",
   ["OUT"] = "OUT",
@@ -61,6 +64,8 @@ texts = {
   ["short_duration_range"] = "Rng d",
   ["short_waveform"] = "wave",
   ["short_silence"] = "quiet",
+  ["short_jitter"]="jitter",
+  ["short_smoothing"]="smooth",
 
  
   
@@ -79,6 +84,8 @@ texts = {
   ["shortest_duration_range"] = "RNGD",
   ["shortest_waveform"] = "WAVE",
   ["shortest_silence"] = "QT",
+  ["shortest_jitter"] = "JITT",
+  ["shortest_smoothing"] = "SMOT",
 
   
   ["decibels"] = "^0 dB",

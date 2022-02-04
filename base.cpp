@@ -33,6 +33,8 @@ void trace(const char *tmpl,const float32 value1,const float32 value2,const floa
 	JBox_TraceValues(__FILE__,__LINE__,tmpl,vals,3);
 }
 
+float32 clamp(const float32 f,const float32 upper) { return std::max(0.f,std::min(upper,f)); }
+
  float32 toFloat(const TJBox_Value diff) {
 	return static_cast<float32>(JBox_GetNumber(diff));
 }

@@ -38,9 +38,9 @@ front = {
   silence_on = {offset = { 2210,395 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
   silence_display = {offset={1950,610},{path="Display_200_50_1frames"}},
   
-  glitch = {offset = { 2300,450 },{ path = "Knob_49_63frames", frames = 63 }},
-  glitch_on = {offset = { 2560,395 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
-  glitch_display = {offset={2300,610},{path="Display_200_50_1frames"}},
+  jitter = {offset = { 2300,450 },{ path = "Knob_49_63frames", frames = 63 }},
+  jitter_on = {offset = { 2560,395 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
+  jitter_display = {offset={2300,610},{path="Display_200_50_1frames"}},
   
 }
 back = {

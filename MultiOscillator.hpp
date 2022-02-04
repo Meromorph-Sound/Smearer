@@ -41,6 +41,7 @@ private:
 
 	meromorph::Random random;
 	meromorph::Bernoulli probability;
+	meromorph::Bernoulli probabilityJ;
 	WindowType windowType = Triangular;
 	std::shared_ptr<OscillatorCore> core;
 	float32 lower = 0, width = 1;
@@ -56,7 +57,6 @@ private:
 	float32 window(const float32 f);
 
 	int32 initOscillator(const uint32);
-	void jitter(const float32 limit=0.1f);
 
 public:
 	OscillatorBank();
@@ -80,6 +80,10 @@ public:
 
 	void setSilence(const float32 s);
 	bool isSilent() const { return silenceOn; }
+	void setJitter(const float32 s);
+	bool isJitter() const { return jitterOn; }
+
+	void setSmoothing(const uint32 s);
 
 	float32 operator()();
 };

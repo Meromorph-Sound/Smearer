@@ -10,11 +10,18 @@
 namespace meromorph {
 namespace smearer {
 
-void Oscillator::smoothing(const float sm) {
-	SmoothingPeriod = (uint32)(1+249*sm);
+void Oscillator::updatePhase(const float32 change) {
+	phase+=change;
+	phase=std::remainder(phase,TwoPi);
+}
+
+void Oscillator::smoothing(const uint32 s) {
+	SmoothingPeriod = s;
 }
 void Oscillator::reset(const float32 phi0 ) { phase=phi0; }
-void Oscillator::jitter(const float32 j) { phase+=j; }
+void Oscillator::jitter(const float32 j) {
+	updatePhase(j*delta*0.05f);
+}
 void Oscillator::bump() { phase*=-1; }
 
 void Oscillator::init(const float32 d,const float32 a) {
@@ -34,8 +41,7 @@ void Oscillator::step() {
 		//trace("Reminder is ^0 delta is ^1",remainder,delta);
 		remainder++;
 	}
-	phase+=delta;
-	if(phase>=2*Pi) phase-=2*Pi;
+	updatePhase(delta);
 }
 
 

@@ -41,6 +41,8 @@ rt_input_setup = {
    "/custom_properties/duration_range",
    "/custom_properties/waveform",
    "/custom_properties/silence",
+   "/custom_properties/jitter",
+   "/custom_properties/smoothing",
 --  "/custom_properties/inGain",
 --   "/custom_properties/outGain",
   "/audio_inputs/Left/connected",

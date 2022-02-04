@@ -144,6 +144,17 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		set(oscillator.isSilent() ? 1.f : 0.f,Tags::SILENCE_ON);
 		break;
 	}
+	case Tags::JITTER: {
+		auto s=clampedFloat(diff.fCurrentValue);
+		oscillator.setJitter(s);
+		set(oscillator.isJitter() ? 1.f : 0.f,Tags::JITTER_ON);
+		break;
+	}
+	case Tags::SMOOTHING: {
+		auto s=scaledFloat(diff.fCurrentValue,1.f,250.f);
+		oscillator.setSmoothing((uint32)s);
+		break;
+	}
 	case kJBox_AudioInputConnected:
 	case kJBox_AudioOutputConnected:
 		trace("Audio connected");

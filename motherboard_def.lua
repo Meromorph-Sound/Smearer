@@ -21,6 +21,9 @@ local PropertyTags = {
   WAVEFORM = 22,
   SILENCE = 23,
   SILENCE_ON = 24,
+  JITTER = 25,
+  JITTER_ON = 26,
+  SMOOTHING = 27,
   MIXER = 30
 }
 
@@ -39,6 +42,8 @@ local PropertyNames= {
   [21]= "duration_range",
   [22]= "waveform",
   [23]= "silence",
+  [25]= "jitter",
+  [27]= "smoothing",
   [30]= "mixer"
 }
 
@@ -233,6 +238,26 @@ custom_properties = jbox.property_set{
           max=1,
           units={{decimals=2, template = jbox.ui_text("linear_template")}}
         }
+      },
+      ['jitter'] = jbox.number {
+        property_tag = PropertyTags.JITTER,
+		    default = 0,
+		    ui_name = textFor(PropertyTags.JITTER),
+        ui_type = jbox.ui_linear {
+          min=0,
+          max=1,
+          units={{decimals=2, template = jbox.ui_text("linear_template")}}
+        }
+      },
+      ['smoothing'] = jbox.number {
+        property_tag = PropertyTags.SMOOTHING,
+		    default = 1,
+		    ui_name = textFor(PropertyTags.SMOOTHING),
+        ui_type = jbox.ui_linear {
+          min=1,
+          max=250,
+          units={{decimals=0, template = jbox.ui_text("linear_template")}}
+        }
       }
 		}
 	},
@@ -245,6 +270,13 @@ custom_properties = jbox.property_set{
         default=0,
         steps=2,
         ui_name = textFor(PropertyTags.SILENCE),
+        ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
+      },
+      jitter_on = jbox.number {
+            property_tag = PropertyTags.JITTER_ON,
+        default=0,
+        steps=2,
+        ui_name = textFor(PropertyTags.JITTER),
         ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
       }
       } }

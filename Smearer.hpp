@@ -61,7 +61,10 @@ enum Tags : uint32 {
 	DURATION_RANGE=21,
 	OSCILLATOR_WAVEFORM=22,
 	SILENCE=23,
-	SILENCE_ON=24
+	SILENCE_ON=24,
+	JITTER=25,
+	JITTER_ON=26,
+	SMOOTHING=27
 };
 
 class Smearer : public RackExtension {

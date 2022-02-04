@@ -15,14 +15,15 @@ float32 SawtoothOscillator::operator()(const float32 phase) {
 		return (phase/Pi)-1;
 	}
 float32 ExponentialOscillator::operator()(const float32 phase) {
-		return 2*exp(-phase)-1;
+		return 2.f*exp(-phase)-1.f;
 	}
 float32 TriangleOscillator::operator()(const float32 phase) {
 		auto normalised = 2*(phase/Pi)-1; //(2*phase/Pi)-1.f;
 		return (phase<Pi) ? normalised : 2-normalised;
 	}
 float32 SquareOscillator::operator()(const float32 phase) {
-		return (phase<Pi) ? -1 : 1;
+	auto pp=phase/Pi;
+	return 1.f-clamp((pp-0.9f)/0.1f,2.f);
 }
 float32 Step3Oscillator::operator()(const float32 phase) {
 	auto norm = 3.f*phase/Pi;

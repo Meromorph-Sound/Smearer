@@ -20,6 +20,8 @@ private:
 	float32 amplitudeIncrement=0.f;
 	uint32 remainder=0;
 
+	void updatePhase(const float32 change);
+
 public:
 
 	float32 phase;
@@ -35,7 +37,7 @@ public:
 	Oscillator(const Oscillator &) = default;
 	Oscillator &operator=(const Oscillator &) = default;
 
-	void smoothing(const float sm);
+	void smoothing(const uint32 s);
 
 	void reset(const float32 phi0 = 0);
 	void jitter(const float32 j=0.01);

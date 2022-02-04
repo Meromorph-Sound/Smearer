@@ -54,7 +54,7 @@ void trace(const char *tmpl,const float32 value);
 void trace(const char *tmpl,const float32 value1,const float32 value2);
 void trace(const char *tmpl,const float32 value1,const float32 value2,const float32 value3);
 
-
+ float32 clamp(const float32 f,const float32 upper=1.f);
  float32 toFloat(const TJBox_Value diff);
  float32 clampedFloat(const TJBox_Value diff);
  float32 scaledFloat(const TJBox_Value diff,const float32 min=0.0,const float32 max=1.0);

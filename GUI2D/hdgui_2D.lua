@@ -78,6 +78,16 @@ front = jbox.panel {
       horizontal_justification = "right",
       tooltip_template = jbox.ui_text("scale")
     },
+    jbox.analog_knob(simpleNode('jitter')),
+    jbox.sequence_meter{ graphics = { node="jitter_on" }, value=prop("jitter_on")},
+    jbox.value_display { 
+      graphics = { node = "jitter_display" },
+      value = prop("jitter"),
+      text_color = {255,255,0},
+      text_style = "Small label font",
+      horizontal_justification = "right",
+      tooltip_template = jbox.ui_text("scale")
+    },
   }
 }
 back = jbox.panel { 

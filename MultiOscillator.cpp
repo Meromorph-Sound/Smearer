@@ -64,6 +64,7 @@ int32 OscillatorBank::initOscillator(const uint32 n) {
 		auto amp =  window(freq);
 		bank[n]->init(freq,amp);
 	}
+
 	return lifetime;
 }
 
@@ -71,10 +72,6 @@ void OscillatorBank::reset() {
 	for(auto n=0;n<MaxN;n++) bank[n]->reset(random()*TwoPi);
 }
 
-void OscillatorBank::jitter(const float32 limit) {
-	if(!jitterOn || random()>=jitterRate) return;
-	for(auto n=0;n<MaxN;n++) bank[n]->jitter((random()-0.5)*limit);
-}
 
 
 
@@ -106,6 +103,13 @@ void OscillatorBank::setSilence(const float32 s) {
 	silenceOn=s>0;
 	probability.setThreshold(s);
 }
+void OscillatorBank::setJitter(const float32 j) {
+	jitterOn=j>0;
+	probabilityJ.setThreshold(j/64.f);
+}
+void OscillatorBank::setSmoothing(const uint32 s) {
+	for(auto n=0;n<MaxN;n++) bank[n]->smoothing(s);
+}
 
 float32 OscillatorBank::operator()() {
 	if(!core) return 0.f;
@@ -115,8 +119,11 @@ float32 OscillatorBank::operator()() {
 		if(r<=1) r=initOscillator(n);
 		remainder[n]=r-1;
 		out+=(*core)(bank[n]->value())*bank[n]->amplitude;
+
+		if(jitterOn &&(bool)probabilityJ) {
+			bank[n]->jitter((float)random()-0.5f);
+		}
 	}
-	jitter();
 	return out;
 }
 

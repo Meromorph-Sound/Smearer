@@ -26,6 +26,7 @@ protected:
 		std::vector<float32> buffer;
 
 
+		void set(const bool b,const Tag tag) { set(b ? 1.f : 0.f,tag); }
 		template <typename T, class = typename std::enable_if<std::is_arithmetic<T>::value>::type>
 		void set(const T value,const Tag tag) {
 			TJBox_Value v = JBox_MakeNumber(static_cast<float64>(value));
