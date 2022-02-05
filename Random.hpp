@@ -32,7 +32,7 @@ protected:
 	const static float32 I32Max;
 	const static uint64 sconst[];
 
-	void reseed(uint64 n);
+
 	float32 nextFloat() { return float32(rng())/I32Max; }
 
 	virtual float32 next() = 0;
@@ -42,6 +42,7 @@ public:
 	virtual ~RNDBase() = default;
 
 	void init(const uint64 n);
+	void reseed(uint64 n);
 };
 
 uint64 asInteger(const float32 ff);

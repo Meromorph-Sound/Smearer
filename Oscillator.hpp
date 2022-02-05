@@ -20,7 +20,7 @@ private:
 	float32 amplitudeIncrement=0.f;
 	uint32 remainder=0;
 
-	void updatePhase(const float32 change);
+
 
 public:
 

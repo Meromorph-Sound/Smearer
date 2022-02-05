@@ -27,82 +27,84 @@ enum OscillatorCores : uint32 {
 };
 
 class OscillatorCore {
+protected:
+	float32 multiplier;
+
+	constexpr static float32 GainReduction = 1.5f;
+
 public:
-	OscillatorCore() = default;
+	OscillatorCore(const float32 m=1.f);
 	virtual ~OscillatorCore() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
+	float32 operator()(const float32 phase);
 };
 
 class SineOscillator : public OscillatorCore {
 public:
-	SineOscillator() = default;
+	SineOscillator() : OscillatorCore(4.f) {}
 	virtual ~SineOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 
 class SawtoothOscillator : public OscillatorCore {
 public:
-	SawtoothOscillator() = default;
+	SawtoothOscillator()  : OscillatorCore(2.f) {}
 	virtual ~SawtoothOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class ExponentialOscillator : public OscillatorCore {
 public:
-	ExponentialOscillator() = default;
+	ExponentialOscillator() : OscillatorCore(1.f/9.f) {}
 	virtual ~ExponentialOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class TriangleOscillator : public OscillatorCore {
 public:
-	TriangleOscillator() = default;
+	TriangleOscillator()  : OscillatorCore(1.5f) {}
 	virtual ~TriangleOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class Step3Oscillator : public OscillatorCore {
 public:
-	constexpr static float32 cutoff=1.f/3.f;
-	Step3Oscillator() = default;
+	Step3Oscillator()  : OscillatorCore(1.5f) {}
 	virtual ~Step3Oscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class Step4Oscillator : public OscillatorCore {
 public:
-	constexpr static float32 intermediate=1.f/3.f;
-	Step4Oscillator() = default;
+	Step4Oscillator() : OscillatorCore(1.8f) {};
 	virtual ~Step4Oscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class StepUpDownOscillator : public OscillatorCore {
 public:
-	constexpr static float32 cutoff1=2.f/5.f;
-	constexpr static float32 cutoff2=4.f/5.f;
-	StepUpDownOscillator() = default;
+	StepUpDownOscillator() : OscillatorCore(10.f/3.f) {};
 	virtual ~StepUpDownOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class PseudoRandomOscillator : public OscillatorCore {
 public:
 	constexpr static float32 shift1=10000.f;
 	constexpr static float32 shift2=3746.3f;
-	PseudoRandomOscillator() = default;
+	PseudoRandomOscillator() : OscillatorCore(4.f) {};
 	virtual ~PseudoRandomOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 class SquareOscillator : public OscillatorCore {
 public:
-	SquareOscillator() = default;
+	SquareOscillator() : OscillatorCore(4.f) {}
 	virtual ~SquareOscillator() = default;
 
-	virtual float32 operator()(const float32 phase);
+	virtual float32 value(const float32 phase);
 };
 
 std::shared_ptr<OscillatorCore> makeCore(const OscillatorCores c);

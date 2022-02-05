@@ -123,6 +123,7 @@ float32 OscillatorBank::operator()() {
 
 		if(jitterOn &&(bool)probabilityJ) {
 			bank[n]->jitter((float)random()-0.5f);
+
 		}
 	}
 	return out;
