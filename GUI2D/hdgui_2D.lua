@@ -32,12 +32,7 @@ front = jbox.panel {
     jbox.analog_knob (simpleNode("half_width" )),
     jbox.analog_knob (simpleNode("n_oscillators")),
     jbox.analog_knob (simpleNode("scale_factor")),
-    jbox.sequence_fader { 
-      graphics = {node="mixer"}, 
-      value=prop("mixer"),
-      orientation = "horizontal",
-      handle_size = 0
-    },
+    
     jbox.up_down_button(simpleNode("window")),
     jbox.analog_knob({ graphics = { node = "window_display" },value = prop("window") }),
     jbox.toggle_button(simpleNode("filter_on")),
@@ -88,6 +83,11 @@ front = jbox.panel {
       horizontal_justification = "right",
       tooltip_template = jbox.ui_text("scale")
     },
+    jbox.analog_knob(simpleNode('mix_ex')),
+    jbox.analog_knob(simpleNode('mix_in')),
+    jbox.analog_knob(simpleNode('mix_pr')),
+    
+    jbox.momentary_button(simpleNode("randomise")),
   }
 }
 back = jbox.panel { 
@@ -98,6 +98,7 @@ back = jbox.panel {
     jbox.audio_output_socket {graphics = { node = "audioOutputR" },socket = "/audio_outputs/Right"},
     jbox.audio_input_socket {graphics = { node = "audioInputL" },socket = "/audio_inputs/Left"},
     jbox.audio_input_socket {graphics = { node = "audioInputR" },socket = "/audio_inputs/Right"},
+    --jbox.momentary_button(simpleNode("randomise")),
     jbox.device_name {graphics = { node = "deviceName" }}
   },
 }

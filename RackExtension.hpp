@@ -18,6 +18,7 @@ private:
 
 
 		TJBox_ObjectRef props;
+		TJBox_ObjectRef transport;
 		TJBox_ObjectRef noteState;
 
 protected:
@@ -41,6 +42,8 @@ protected:
 			virtual void processMIDIEvent(const TJBox_PropertyDiff &diff);
 
 			virtual void process() {}
+
+			float32 transportPosition();
 
 public:
 

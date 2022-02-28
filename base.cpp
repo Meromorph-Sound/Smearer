@@ -72,6 +72,11 @@ float32 clamp(const float32 f,const float32 upper) { return std::max(0.f,std::mi
 	return static_cast<int32>(static_cast<float32>(JBox_GetNumber(diff)));
 }
 
+
+ float32 dbToLinear(const float32 db) {
+	 return pow(10.f,db/10.f);
+ }
+
  void append(char *str,const char *root,const char *ext) {
 	strcpy(str,root);
 	strcat(str,ext);

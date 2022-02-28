@@ -24,7 +24,10 @@ local PropertyTags = {
   JITTER = 25,
   JITTER_ON = 26,
   SMOOTHING = 27,
-  MIXER = 30
+  MIX_EXT = 30,
+  MIX_INT = 31,
+  MIX_PROD = 32,
+  RANDOMISE = 40,
 }
 
 local PropertyNames= {
@@ -44,8 +47,34 @@ local PropertyNames= {
   [23]= "silence",
   [25]= "jitter",
   [27]= "smoothing",
-  [30]= "mixer"
+  [30]= "mix_ex",
+  [31]= "mix_in",
+  [32]= "mix_pr",
+  [40]= "randomise"
 }
+
+local MIDICC={
+  [1] = 65,
+  [2] = 66,
+  [3] = 67,
+  [4] = 68,
+  [5] = 69,
+  [6] = 70,
+  [7] = 71,
+  [8] = 72,
+  [9] = 73,
+  [10]= 74,
+  [20]= 75,
+  [21]= 76,
+  [22]= 77,
+  [23]= 78,
+  [25]= 79,
+  [27]= 80,
+  [30]= 81,
+  [31]= 82,
+  [32]= 83,
+  [40]= 84
+  }
 
 local WindowNames= {
   [1] = 'rectangular',
@@ -129,20 +158,40 @@ custom_properties = jbox.property_set{
       },
 		  ['scale_factor'] = jbox.number {
 		    property_tag = PropertyTags.SCALE_FACTOR,
-		    default = 0.5,
+		    default = 0,
 		    ui_name = textFor(PropertyTags.SCALE_FACTOR),
 		    ui_type = jbox.ui_linear {
-          min=0, 
-          max=1, 
+          min=-3, 
+          max=3, 
           units={{decimals=1,template = jbox.ui_text("scale" )}}
         }
       },
-      ['mixer'] = jbox.number { 
-        property_tag = PropertyTags.MIXER,
-		    default = 0,
-		    ui_name = textFor(PropertyTags.MIXER),
+      ['mix_ex'] = jbox.number { 
+        property_tag = PropertyTags.MIX_EXT,
+		    default = 1,
+		    ui_name = textFor(PropertyTags.MIX_EXT),
 		    ui_type = jbox.ui_linear {
-          min=-1, 
+          min=0, 
+          max=1, 
+          units={{decimals=2,template = jbox.ui_text("scale" )}}
+        }
+      },
+      ['mix_in'] = jbox.number { 
+        property_tag = PropertyTags.MIX_INT,
+		    default = 0,
+		    ui_name = textFor(PropertyTags.MIX_INT),
+		    ui_type = jbox.ui_linear {
+          min=0, 
+          max=1, 
+          units={{decimals=2,template = jbox.ui_text("scale" )}}
+        }
+      },
+      ['mix_pr'] = jbox.number { 
+        property_tag = PropertyTags.MIX_PROD,
+		    default = 1,
+		    ui_name = textFor(PropertyTags.MIX_PROD),
+		    ui_type = jbox.ui_linear {
+          min=0, 
           max=1, 
           units={{decimals=2,template = jbox.ui_text("scale" )}}
         }
@@ -258,6 +307,13 @@ custom_properties = jbox.property_set{
           max=250,
           units={{decimals=0, template = jbox.ui_text("linear_template")}}
         }
+      },
+      ['randomise'] = jbox.number {
+		    property_tag = PropertyTags.RANDOMISE,
+		    default = 0,
+        steps = 2,
+		    ui_name = textFor(PropertyTags.RANDOMISE),
+		    ui_type = jbox.ui_selector{ jbox.UI_TEXT_OFF, jbox.UI_TEXT_ON }
       }
 		}
 	},
@@ -308,11 +364,20 @@ end
 local midi_cc = {}
 local remotes = {}
 
+
+
+
 for idx, prop in pairs(PropertyNames) do
   local fullProp = "/custom_properties/"..prop
-  midi_cc[19+idx] = fullProp
+  local cc = MIDICC[idx]
+  midi_cc[cc] = fullProp
   remotes[fullProp] = remote_item(prop)
 end
+
+for k, v in pairs(midi_cc) do
+  jbox.trace("MIDI "..k.." <-> "..v)
+end
+  
 
 midi_implementation_chart = { midi_cc_chart = midi_cc }
 remote_implementation_chart = remotes

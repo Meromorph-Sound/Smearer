@@ -11,11 +11,16 @@ const uint32 RackExtension::BUFFER_SIZE = 64;
 
 RackExtension::RackExtension() : buffer(RackExtension::BUFFER_SIZE) {
 	props=JBox_GetMotherboardObjectRef("/custom_properties");
+	transport=JBox_GetMotherboardObjectRef("/transport");
 	noteState = JBox_GetMotherboardObjectRef("/note_states");
 }
 
 
+float32 RackExtension::transportPosition() {
+	auto val=JBox_LoadMOMPropertyByTag(transport,kJBox_TransportPlayPos);
+	return toFloat(val);
 
+}
 
 
 void RackExtension::processMIDIEvent(const TJBox_PropertyDiff &diff) {

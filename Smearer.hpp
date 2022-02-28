@@ -23,8 +23,8 @@ namespace smearer {
 #define HALF_WIDTH_MIN 1.f
 #define HALF_WIDTH_MAX 90.f
 
-#define SCALE_MIN 0.f
-#define SCALE_MAX 2.0f
+#define SCALE_MIN -3.f
+#define SCALE_MAX 3.f
 
 
 //using port_t = TJBox_ObjectRef;
@@ -65,8 +65,10 @@ enum Tags : uint32 {
 	JITTER=25,
 	JITTER_ON=26,
 	SMOOTHING=27,
-	RESEED=40,
-	RESEED_VALUE=41
+	MIX_EXT=30,
+	MIX_INT=31,
+	MIX_PROD=32,
+	RESEED=40
 };
 
 class Smearer : public RackExtension {
@@ -82,7 +84,10 @@ private:
 	float32 sampleRate=44100.f;
 
 	bool wasReseeded=false;
-	float32 reseedValue = Pi;
+
+	float32 mix_ext=1.f;
+	float32 mix_int=0.f;
+	float32 mix_prod=1.f;
 
 	//port_t inL,inR;
 	//port_t outL,outR;

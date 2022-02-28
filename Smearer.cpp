@@ -58,10 +58,10 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	}
 
 	case Tags::SCALE_FACTOR: {
-		trace(">>> Processing SCALE @ tag ^0",tag);
-		scaleFactor = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
-		trace("Scale is ^0",scaleFactor);
-
+		trace(">>> Processing GAIN @ tag ^0",tag);
+		auto f = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
+		scaleFactor=dbToLinear(f);
+		trace("DB is ^0 Gain is ^1",f,scaleFactor);
 		break;
 	}
 	case Tags::WINDOW: {
@@ -74,8 +74,6 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto b = toBool(diff.fCurrentValue);
 		if(b) trace("Limiter is ON");
 		else trace("Limiter is OFF");
-		//leftLimiter.setActive(b);
-		//rightLimiter.setActive(b);
 		left.setLimiterActive(b);
 		right.setLimiterActive(b);
 		break;
@@ -83,21 +81,15 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	case Tags::LIMIT_MODE: {
 		auto m = static_cast<Limiter::Mode>(toInt(diff.fCurrentValue));
 		trace("Limiter mode is ^0",m);
-		//leftLimiter.setMode(m);
-		//rightLimiter.setMode(m);
 		left.setLimiterMode(m);
 		right.setLimiterMode(m);
 		break;
 	}
 	case Tags::LIMIT_DEPTH: {
-		//auto d = scaledFloat(diff.fCurrentValue,-12.f,3.f);
 		auto r = toFloat(diff.fCurrentValue);
 		auto l = scaledFloat(diff.fCurrentValue,-12.f,0.f);
 		auto p = pow(10.f,l*0.1f);
 		trace("Limiter scale is ^0 <=> ^1",r,l);
-		//trace("Limiter depth is ^0",d);
-		//leftLimiter.setLimit(d);
-		//rightLimiter.setLimit(d);
 		left.setLimiterLimit(p);
 		right.setLimiterLimit(p);
 		break;
@@ -156,19 +148,23 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		oscillator.setSmoothing((uint32)s);
 		break;
 	}
-
 	case Tags::RESEED: { // momentary boolean
 		auto b = toBool(diff.fCurrentValue);
 		if(b!=wasReseeded) {
-			if(b) oscillator.reseed(reseedValue);
+			if(b) oscillator.reseed(transportPosition());
 			wasReseeded=b;
 		}
 		break;
 	}
-	case Tags::RESEED_VALUE: {
-		reseedValue=toFloat(diff.fCurrentValue);
+	case Tags::MIX_EXT:
+		mix_ext=clampedFloat(diff.fCurrentValue);
 		break;
-	}
+	case Tags::MIX_INT:
+		mix_int=clampedFloat(diff.fCurrentValue);
+		break;
+	case Tags::MIX_PROD:
+		mix_prod = clampedFloat(diff.fCurrentValue);
+		break;
 
 	case kJBox_AudioInputConnected:
 	case kJBox_AudioOutputConnected:
@@ -180,13 +176,13 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 }
 
 float32 Smearer::operator()(const float32 buf,const float32 mul) const {
-	return buf*(1.f + scaleFactor*mul);
+	return buf*mix_ext + mul*mix_int + buf*mul*mix_prod;
 }
 
 void Smearer::process() {
 
 	if(!initialised) {
-		oscillator.reseed(reseedValue);
+		oscillator.reseed(transportPosition());
 		//oscillator.setSilence(0.5);
 		initialised=true;
 	}

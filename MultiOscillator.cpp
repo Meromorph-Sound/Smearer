@@ -130,10 +130,18 @@ float32 OscillatorBank::operator()() {
 }
 
 void OscillatorBank::reseed(const float f) {
-	uint64 n=(asInteger(lower+f) + asInteger(width-f))^asInteger(invRate) + asInteger(sampleRate)^asInteger(jitterRate)-N;
-	random.reseed(n);
-	probability.reseed(n+asInteger(random()));
-	probabilityJ.reseed(n-asInteger(random()));
+	generator.reset();
+	generator(lower+f);
+	generator(width-f);
+	generator(invRate);
+	generator(sampleRate);
+	generator(jitterRate);
+	generator(N);
+	random.reseed(generator);
+	generator(random());
+	probability.reseed(generator);
+	generator(random());
+	probabilityJ.reseed(generator);
 }
 
 } /* namespace smearer */

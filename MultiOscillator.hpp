@@ -39,6 +39,7 @@ private:
 	std::vector<std::shared_ptr<OscillatorCore>> cores;
 	std::vector<int32> remainder;
 
+	meromorph::Generator generator;
 	meromorph::Random random;
 	meromorph::Bernoulli probability;
 	meromorph::Bernoulli probabilityJ;

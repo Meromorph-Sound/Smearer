@@ -9,7 +9,9 @@ texts = {
   ["half_width"] = "Half Width",
   ["n_oscillators"] = "N Oscillators",
   ["scale_factor"] = "Scale Factor",
-  ["mixer"] = "Output mixer",
+  ["mix_in"] = "Output mixer",
+  ["mix_ex"] = "Output mixer",
+  ["mix_pr"] = "Output mixer",
   ["window"] = "Window",
   ["filter_on"] = "Filter on/off",
   ["filter_q"] = "Filter Q",
@@ -25,6 +27,7 @@ texts = {
   ["jitter"] = "Jitter Probability",
   ["jitter_on"] = "Jitter On",
   ["smoothing"] = "Smoothing length",
+  ["randomise"] = "Randomise generator",
   
   ["IN"] = "IN",
   ["OUT"] = "OUT",
@@ -52,7 +55,9 @@ texts = {
   ["short_half_width"] = "width",
   ["short_n_oscillators"] = "nOsc",
   ["short_scale_factor"] = "scale",
-  ["short_mixer"] = "mixer",
+  ["short_mix_in"] = "mixin",
+  ["short_mix_ex"] = "mixex",
+  ["short_mix_pr"] = "mixpr",
   ["short_window"] = "Win",
   ["short_filter_on"] = "LP on",
   ["short_filter_q"] = "Q",
@@ -66,13 +71,16 @@ texts = {
   ["short_silence"] = "quiet",
   ["short_jitter"]="jitter",
   ["short_smoothing"]="smooth",
+  ["short_randomise"]="random",
 
  
   
   ["shortest_half_width"] = "WID",
   ["shortest_n_oscillators"] = "NOSC",
   ["shortest_scale_factor"] = "SCLE",
-  ["shortest_mixer"] = "MIX",
+  ["shortest_mix_in"] = "MIXI",
+  ["shortest_mix_ex"] = "MIXE",
+  ["shortest_mix_pr"] = "MIXP",
   ["shortest_window"] = "WIN",
   ["shortest_filter_on"] = "LPON",
   ["shortest_filter_q"] = "Q",
@@ -86,6 +94,7 @@ texts = {
   ["shortest_silence"] = "QT",
   ["shortest_jitter"] = "JITT",
   ["shortest_smoothing"] = "SMOT",
+  ["shortest_randomise"] = "RND",
 
   
   ["decibels"] = "^0 dB",

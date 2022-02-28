@@ -45,8 +45,29 @@ public:
 	void reseed(uint64 n);
 };
 
-uint64 asInteger(const float32 ff);
-uint64 generateSeed(const uint64 initial);
+class Generator {
+private:
+	union Conv64 {
+		float64 f;
+		uint64 i;
+
+		Conv64() : f(0.0) {}
+		Conv64(const float64 f_) : f(f_) {}
+	};
+	Conv64 conv;
+
+public:
+	Generator(const std::vector<float32> &ins);
+	Generator() = default;
+	virtual ~Generator() = default;
+
+	void reset() { conv.f=0; }
+	uint64 operator()(const float32);
+	operator uint64() const { return conv.i; }
+};
+
+//uint64 asInteger(const float32 ff);
+//uint64 generateSeed(const uint64 initial);
 
 class Random : public RNDBase {
 	float32 lower;
