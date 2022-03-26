@@ -21,6 +21,28 @@
    sodipodi:docname="frontPanel.svg">
   <defs
      id="defs2">
+    <pattern
+       patternTransform="matrix(12.000007,5.7168064e-8,5.7168064e-8,12.000007,56.307796,-173.08257)"
+       id="pattern3855"
+       xlink:href="#Strips1_1"
+       inkscape:collect="always" />
+    <pattern
+       inkscape:collect="always"
+       patternUnits="userSpaceOnUse"
+       width="2"
+       height="1"
+       patternTransform="translate(0,0) scale(10,10)"
+       id="Strips1_1"
+       inkscape:stockid="Stripes 1:1"
+       inkscape:isstock="true">
+      <rect
+         style="fill:#c5c5c5;stroke:none"
+         x="0"
+         y="-0.5"
+         width="1"
+         height="2"
+         id="rect2875" />
+    </pattern>
     <linearGradient
        inkscape:collect="always"
        id="linearGradient5396">
@@ -142,6 +164,14 @@
        x2="681"
        y2="197.49998"
        gradientUnits="userSpaceOnUse" />
+    <clipPath
+       id="clipPath3864"
+       clipPathUnits="userSpaceOnUse">
+      <path
+         d="m 2509.4549,881.975 h 67.6816 c 9.6974,0 17.5043,7.80687 17.5043,17.50419 v 67.68174 c 0,9.6973 -7.8069,17.5041 -17.5043,17.5041 h -67.6816 c -9.6973,0 -17.5042,-7.8068 -17.5042,-17.5041 v -67.68174 c 0,-9.69732 7.8069,-17.50419 17.5042,-17.50419 z"
+         style="fill:none;stroke:#000000;stroke-width:2.3099;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3866" />
+    </clipPath>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -151,8 +181,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.34286232"
-     inkscape:cx="949.35935"
-     inkscape:cy="789.04401"
+     inkscape:cx="2990.9952"
+     inkscape:cy="695.71208"
      inkscape:document-units="mm"
      inkscape:current-layer="layer3"
      inkscape:document-rotation="0"
@@ -160,8 +190,8 @@
      inkscape:snap-global="false"
      inkscape:window-width="2290"
      inkscape:window-height="1027"
-     inkscape:window-x="2187"
-     inkscape:window-y="71"
+     inkscape:window-x="2188"
+     inkscape:window-y="68"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata5">
@@ -606,12 +636,46 @@
        id="path5323-0-8"
        d="m 501,269.99996 a 85,85 0 1 1 170,0"
        style="display:inline;fill:none;stroke:url(#linearGradient5377-1);stroke-width:20px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <g
+       transform="translate(-776.9507,-656.975)"
+       clip-path="url(#clipPath3864)"
+       id="g3859">
+      <rect
+         style="fill:#ffff80;stroke:none;stroke-width:3.42857;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect3837"
+         width="180"
+         height="180"
+         x="2453.2957"
+         y="843.32001"
+         rx="1.9170001"
+         ry="1.91689" />
+      <rect
+         style="display:inline;opacity:1;fill:url(#pattern3855);fill-opacity:1;stroke:none;stroke-width:2.65387;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none"
+         id="rect1912"
+         width="127.28196"
+         height="127.28196"
+         x="2394.698"
+         y="-1202.0649"
+         rx="0.0044840062"
+         ry="0.0044840062"
+         transform="rotate(44.999981)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:condensed;font-size:45.3333px;line-height:1.25;font-family:'Avenir Next Condensed';-inkscape-font-specification:'Avenir Next Condensed, Semi-Bold Condensed';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;opacity:1;fill:#ffff00"
+       x="1714.0459"
+       y="204.63847"
+       id="text3849-5-8-9-3-4"><tspan
+         y="204.63847"
+         x="1714.0459"
+         id="tspan3888"
+         sodipodi:role="line">Reset</tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Controls"
-     style="display:inline;opacity:1">
+     style="display:none;opacity:1">
     <rect
        style="display:inline;opacity:0.81;fill:#ff0000;fill-opacity:0.9;stroke:none;stroke-width:3.77953;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="onOffBypass"
