@@ -65,8 +65,6 @@ enum Tags : uint32 {
 	JITTER=25,
 	JITTER_ON=26,
 	SMOOTHING=27,
-	MIX_EXT=30,
-	MIX_INT=31,
 	MIX_PROD=32,
 	RESEED=40
 };

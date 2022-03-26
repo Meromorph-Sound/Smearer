@@ -156,14 +156,10 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		}
 		break;
 	}
-	case Tags::MIX_EXT:
-		mix_ext=clampedFloat(diff.fCurrentValue);
-		break;
-	case Tags::MIX_INT:
-		mix_int=clampedFloat(diff.fCurrentValue);
-		break;
 	case Tags::MIX_PROD:
-		mix_prod = clampedFloat(diff.fCurrentValue);
+		mix_ext = clampedFloat(diff.fCurrentValue);
+		mix_int = 1.f-mix_ext;
+		mix_prod=-4.f*(mix_ext-0.5f)*(mix_int-0.5f);
 		break;
 
 	case kJBox_AudioInputConnected:
