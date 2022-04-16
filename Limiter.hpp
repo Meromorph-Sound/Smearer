@@ -63,8 +63,35 @@ public:
 		}
 		return didLimit;
 	}
+
 	template<typename T>
-	bool limit(std::vector<T> &v) { return limit(v.data(),v.size()); }
+	bool limit(std::vector<cx32> &v) { return limit(v.data(),v.size()); }
+
+};
+
+struct Limiters {
+protected:
+	Limiter left;
+	Limiter right;
+
+public:
+	Limiters() : left(), right() {}
+	virtual ~Limiters() = default;
+	Limiters(const Limiters &) = default;
+	Limiters & operator=(const Limiter &) = default;
+
+	void setLimit(const float32 s) { left.setLimit(s); right.setLimit(s); }
+	void setMode(const Limiter::Mode m) { left.setMode(m); right.setMode(m); }
+	void setActive(const bool a) { left.setActive(a); right.setActive(a); }
+
+	template<typename T>
+	bool limit(T *lData,T *rData,const uint32 n) {
+		auto l = left.limit(lData,n);
+		auto r = right.limit(rData,n);
+		return l || r;
+	}
+	template<typename T>
+	bool limit(std::vector<T> &l,std::vector<T> &r) { return limit(l.data(),r.data(),l.size()); }
 };
 
 } /* namespace meromorph */

@@ -16,6 +16,7 @@ const uint32 OscillatorBank::MaxN = 500;
 
 float32 OscillatorBank::randomFreq() { return (lower+random()*width)*invRate; }
 int32 OscillatorBank::randomLifetime() { return 64+int32(minLifetime+lifetimeRange*random()); }
+float32 OscillatorBank::randomAngle() { return (random()-.5f)*stereoWidth; }
 
 float32 OscillatorBank::window(const float32 f) {
 	if(f<=0.0) return 0.f;
@@ -47,11 +48,21 @@ inline std::shared_ptr<OscillatorCore> makeOsc() {
 	return std::static_pointer_cast<OscillatorCore>(std::make_shared<T>());
 }
 
-OscillatorBank::OscillatorBank() : bank(MaxN), cores(9), remainder(MaxN,0), sampleRate(44100), invRate(2*Pi/sampleRate) {
+#ifdef COMPLEX_SAMPLES
+OscillatorBank::OscillatorBank() : bank(MaxN), cores(9), remainder(MaxN,0),
+		pans(MaxN,0), sampleRate(44100), invRate(2*Pi/sampleRate) {
 	for(auto n=0;n<MaxN;n++) bank[n]=std::make_shared<Oscillator>(random());
 	for(auto n=0;n<9;n++) cores[n]=makeCore(static_cast<OscillatorCores>(n));
 	core=cores[Sinusoid];
 }
+#else
+OscillatorBank::OscillatorBank() : bank(MaxN), cores(9), remainder(MaxN,0),
+		pansR(MaxN,0), pansI(MaxN,0), sampleRate(44100), invRate(2*Pi/sampleRate) {
+	for(auto n=0;n<MaxN;n++) bank[n]=std::make_shared<Oscillator>(random());
+	for(auto n=0;n<9;n++) cores[n]=makeCore(static_cast<OscillatorCores>(n));
+	core=cores[Sinusoid];
+}
+#endif
 
 int32 OscillatorBank::initOscillator(const uint32 n) {
 
@@ -63,6 +74,14 @@ int32 OscillatorBank::initOscillator(const uint32 n) {
 		auto freq = randomFreq();
 		auto amp =  window(freq);
 		bank[n]->init(freq,amp);
+
+		auto pan = randomAngle();
+#ifdef COMPLEX_SAMPLES
+		pans[n]=std::polar(1.0f,pan);
+#else
+		pansR[n]=sin(pan);
+		pansI[n]=cos(pan);
+#endif
 	}
 
 	return lifetime;
@@ -111,23 +130,54 @@ void OscillatorBank::setJitter(const float32 j) {
 void OscillatorBank::setSmoothing(const uint32 s) {
 	for(auto n=0;n<MaxN;n++) bank[n]->smoothing(s);
 }
-
-float32 OscillatorBank::operator()() {
-	if(!core) return 0.f;
-	auto out=0.f;
-	for(auto n=0;n<N;n++) {
-		auto r=remainder[n];
-		if(r<=1) r=initOscillator(n);
-		remainder[n]=r-1;
-		out+=(*core)(bank[n]->value())*bank[n]->amplitude;
-
-		if(jitterOn &&(bool)probabilityJ) {
-			bank[n]->jitter((float)random()-0.5f);
-
-		}
-	}
-	return out;
+void OscillatorBank::setWidth(const float32 w) {
+	stereoWidth=w;
 }
+
+#ifdef COMPLEX_SAMPLES
+cx32 OscillatorBank::operator()() {
+	if(!core) return cx::Zero;
+
+		auto out=cx::Zero;
+		for(auto n=0;n<N;n++) {
+			auto r=remainder[n];
+			if(r<=1) r=initOscillator(n);
+			remainder[n]=r-1;
+			auto base=(*core)(bank[n]->value())*bank[n]->amplitude;
+			out+=base*pans[n];
+			//out+=((*core)(bank[n]->value())*bank[n]->amplitude) * pans[n];
+
+			if(jitterOn &&(bool)probabilityJ) {
+				bank[n]->jitter((float)random()-0.5f);
+			}
+		}
+		return out;
+}
+#else
+void OscillatorBank::operator()(const unsigned nSamples,const float32 factor,float32 *bufferR,float32 *bufferI) {
+	if(!core) return;
+
+	for(auto s=0;s<nSamples;s++) {
+		auto re=0.f;
+		auto im=0.f;
+		for(auto n=0;n<N;n++) {
+			auto r=remainder[n];
+			if(r<=1) r=initOscillator(n);
+			remainder[n]=r-1;
+			auto base=(*core)(bank[n]->value())*bank[n]->amplitude;
+			re+=base*pansR[n];
+			im+=base*pansI[n];
+			//out+=((*core)(bank[n]->value())*bank[n]->amplitude) * pans[n];
+
+			if(jitterOn &&(bool)probabilityJ) {
+				bank[n]->jitter((float)random()-0.5f);
+			}
+		}
+		bufferR[s]=(1.f-factor)+factor*re;
+		bufferI[s]=(1.f-factor)+factor*im;
+	}
+}
+#endif
 
 void OscillatorBank::reseed(const float f) {
 	generator.reset();

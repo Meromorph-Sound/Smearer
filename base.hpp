@@ -39,6 +39,8 @@ enum State : int32 {
 	Off = 0, On = 1, Bypassed = 2
 };
 
+#define COMPLEX_SAMPLES
+
 namespace cx {
  	const inline cx32 Zero = cx32();
  	const inline cx32 I = cx32(0,1);
@@ -46,6 +48,9 @@ namespace cx {
 
  	float32 deg2rad(const float32 deg);
  	cx32 purePhase(const float32 theta);
+
+ 	void copy(cx32 &cx,const float32 r,const float32 i);
+ 	void zero(cx32 &cx);
  }
 
 
@@ -74,6 +79,9 @@ T clamp(const T lo,const T hi,const T value) {
 
  inline float32 const Pi = 3.141592653589793f;
  inline float32 const TwoPi = 2.f*Pi;
+ inline float32 const HalfPi = 0.5f*Pi;
+
+ inline cx32 const cxZero = cx32(0,0);
 
 float32 dbToLinear(const float32 db);
 

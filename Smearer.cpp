@@ -16,8 +16,7 @@ namespace smearer {
 
 
 
-Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), left("Left"), right("Right") {
-}
+Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), channel("Left","Right") {}
 
 
 
@@ -74,15 +73,13 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto b = toBool(diff.fCurrentValue);
 		if(b) trace("Limiter is ON");
 		else trace("Limiter is OFF");
-		left.setLimiterActive(b);
-		right.setLimiterActive(b);
+		channel.setLimiterActive(b);
 		break;
 	}
 	case Tags::LIMIT_MODE: {
 		auto m = static_cast<Limiter::Mode>(toInt(diff.fCurrentValue));
 		trace("Limiter mode is ^0",m);
-		left.setLimiterMode(m);
-		right.setLimiterMode(m);
+		channel.setLimiterMode(m);
 		break;
 	}
 	case Tags::LIMIT_DEPTH: {
@@ -90,8 +87,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto l = scaledFloat(diff.fCurrentValue,-12.f,0.f);
 		auto p = pow(10.f,l*0.1f);
 		trace("Limiter scale is ^0 <=> ^1",r,l);
-		left.setLimiterLimit(p);
-		right.setLimiterLimit(p);
+		channel.setLimiterLimit(p);
 		break;
 	}
 	case Tags::FILTER_ON: {
@@ -156,12 +152,12 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		}
 		break;
 	}
-	case Tags::MIX_PROD:
-		mix_ext = clampedFloat(diff.fCurrentValue);
-		mix_int = 1.f-mix_ext;
-		mix_prod=-4.f*(mix_ext-0.5f)*(mix_int-0.5f);
+	case Tags::MIX_PROD: {
+		auto width=scaledFloat(diff.fCurrentValue,0.f,Pi);
+		oscillator.setWidth(width);
+		trace("Width changed to ^0",width);
 		break;
-
+	}
 	case kJBox_AudioInputConnected:
 	case kJBox_AudioOutputConnected:
 		trace("Audio connected");
@@ -171,9 +167,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 
 }
 
-float32 Smearer::operator()(const float32 buf,const float32 mul) const {
-	return buf*mix_ext + mul*mix_int + buf*mul*mix_prod;
-}
+
 
 void Smearer::process() {
 
@@ -194,8 +188,7 @@ void Smearer::process() {
 		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=(1.f-factor)+factor*oscillator();
 		filter.filter(osc);
 
-		left.process(osc.data());
-		right.process(osc.data());
+		channel.process(osc.data());
 
 //		if(isConnectedInput(inL)) {
 //			read(inL,buffer.data());
@@ -212,8 +205,7 @@ void Smearer::process() {
 		break; }
 	case State::Bypassed:
 		//trace("Bypassed!");
-		left.bypass();
-		right.bypass();
+		channel.bypass();
 		break;
 	default:
 		break;

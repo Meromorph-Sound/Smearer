@@ -13,7 +13,7 @@
 #include "MultiOscillator.hpp"
 #include "Limiter.hpp"
 #include "Filter.hpp"
-#include "Channel.hpp"
+#include "Stereo.hpp"
 
 
 namespace meromorph {
@@ -83,20 +83,18 @@ private:
 
 	bool wasReseeded=false;
 
-	float32 mix_ext=1.f;
-	float32 mix_int=0.f;
-	float32 mix_prod=1.f;
+
 
 	//port_t inL,inR;
 	//port_t outL,outR;
 
 	OscillatorBank oscillator;
-	std::vector<float32> osc;
+	std::vector<cx32> osc;
 
-	Channel left, right;
+	//Channel left, right;
+	StereoChannel channel;
 
-
-	Filter filter;
+	Filter<cx32> filter;
 	//Filter rightFilter;
 	//Limiter leftLimiter;
 	//Limiter rightLimiter;
@@ -121,7 +119,6 @@ protected:
 	virtual void reset();
 	virtual void setSampleRate(const float32 rate);
 
-	float32 operator()(const float32 buf,const float32 mul) const;
 
 public:
 	Smearer();

@@ -87,6 +87,14 @@ float32 clamp(const float32 f,const float32 upper) { return std::max(0.f,std::mi
  namespace cx {
  	 float32 deg2rad(const float32 deg) { return deg * Pi/180.f; }
  	 cx32 purePhase(const float32 theta) { return std::polar(1.f,theta*Pi/180.f); }
+ 	void copy(cx32 &cx,const float32 r,const float32 i) {
+ 		cx.real(r);
+ 		cx.imag(r);
+ 	}
+ 	void zero(cx32 &cx) {
+ 		cx.real(0.f);
+ 		cx.imag(0.f);
+ 	}
  }
 
 }

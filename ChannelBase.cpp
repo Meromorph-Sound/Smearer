@@ -1,21 +1,14 @@
 /*
- * Filter.cpp
+ * ChannelBase.cpp
  *
- *  Created on: 11 Dec 2021
+ *  Created on: 12 Apr 2022
  *      Author: julianporter
  */
 
-#include "Filter.hpp"
+#include "ChannelBase.hpp"
 
 namespace meromorph {
 namespace smearer {
-
-
-
-
-
-
-
 
 } /* namespace smearer */
 } /* namespace meromorph */

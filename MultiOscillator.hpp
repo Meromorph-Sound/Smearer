@@ -38,7 +38,12 @@ private:
 	std::vector<std::shared_ptr<Oscillator>> bank;
 	std::vector<std::shared_ptr<OscillatorCore>> cores;
 	std::vector<int32> remainder;
-
+#ifdef COMPLEX_SAMPLES
+	std::vector<cx32> pans;
+#else
+	std::vector<float32> pansR;
+	std::vector<float32> pansI;
+#endif
 	meromorph::Generator generator;
 	meromorph::Random random;
 	meromorph::Bernoulli probability;
@@ -51,10 +56,14 @@ private:
 	float32 jitterRate = 0;
 	bool jitterOn = false;
 	bool silenceOn = false;
+	float32 stereoWidth = Pi;
+
+
 
 
 	float32 randomFreq();
 	int32 randomLifetime();
+	float32 randomAngle();
 	float32 window(const float32 f);
 
 	int32 initOscillator(const uint32);
@@ -83,10 +92,15 @@ public:
 	bool isSilent() const { return silenceOn; }
 	void setJitter(const float32 s);
 	bool isJitter() const { return jitterOn; }
+	void setWidth(const float32 w);
 
 	void setSmoothing(const uint32 s);
 
-	float32 operator()();
+#ifdef COMPLEX_SAMPLES
+	cx32 operator()();
+#else
+	void operator()(const unsigned nSamples,const float32 factor,float32 *bufferR,float32 *bufferI);
+#endif
 
 	void reseed(const float32 f=Pi);
 
