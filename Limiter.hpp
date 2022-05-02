@@ -64,9 +64,6 @@ public:
 		return didLimit;
 	}
 
-	template<typename T>
-	bool limit(std::vector<cx32> &v) { return limit(v.data(),v.size()); }
-
 };
 
 struct Limiters {
@@ -78,7 +75,7 @@ public:
 	Limiters() : left(), right() {}
 	virtual ~Limiters() = default;
 	Limiters(const Limiters &) = default;
-	Limiters & operator=(const Limiter &) = default;
+	Limiters & operator=(const Limiters &) = default;
 
 	void setLimit(const float32 s) { left.setLimit(s); right.setLimit(s); }
 	void setMode(const Limiter::Mode m) { left.setMode(m); right.setMode(m); }
@@ -92,6 +89,65 @@ public:
 	}
 	template<typename T>
 	bool limit(std::vector<T> &l,std::vector<T> &r) { return limit(l.data(),r.data(),l.size()); }
+};
+
+class StereoLimiter {
+public:
+	enum Mode : uint32 {
+		HARD=1,
+		SOFT=2
+	};
+
+private:
+
+	float32 scale;
+	Mode mode;
+	bool active;
+	bool didLimit;
+
+	static constexpr float32 SOFT_THRESHOLD=0.15;
+	static constexpr float32 epsilon=1.0e-5;
+public:
+
+	StereoLimiter() : scale(1.0), mode(Mode::HARD), active(true), didLimit(false) {};
+	virtual ~StereoLimiter() = default;
+	StereoLimiter(const StereoLimiter &other) = default;
+	StereoLimiter& operator=(const StereoLimiter &other) = default;
+
+	void setLimit(const float32 s) { scale=s; }
+	void setMode(const Mode m) { mode=m; }
+	void setActive(const bool a) { active=a; }
+
+	template<typename T>
+	bool limit(T *left, T *right,const uint32 n) {
+		didLimit=false;
+		if(!active) return false;
+
+		switch(mode) {
+		case Mode::SOFT:
+			for(auto i=0;i<n;i++) {
+				auto inL = left[i];
+				auto inR = right[i];
+				auto rmsScaled = hypot(inL,inR)*scale;
+				auto dL = (rmsScaled==0) ? 0.f : rmsScaled*tanh(inL/rmsScaled);
+				auto dR = (rmsScaled==0) ? 0.f : rmsScaled*tanh(inR/rmsScaled);
+				left[i]=dL;
+				right[i]=dR;
+				didLimit = didLimit || (abs(dL-inL)>SOFT_THRESHOLD) || (abs(dR-inR)>SOFT_THRESHOLD);
+			}
+			break;
+		case Mode::HARD:
+			for(auto i=0;i<n;i++) {
+				auto n = std::max(scale,std::abs(left[i]),std::abs(right[i]));
+				left[i]=left[i]/n;
+				right[i]=right[i]/n;
+				didLimit = didLimit || (n>1);
+			}
+			break;
+		}
+		return didLimit;
+	}
+
 };
 
 } /* namespace meromorph */

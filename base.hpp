@@ -31,6 +31,7 @@ using float64 = TJBox_Float64;
 using float32 = TJBox_AudioSample;
 
 using cx32 = std::complex<float32>;
+using vec_t = std::vector<float32>;
 
 using Tag = uint32;
 using Channel = uint32;
@@ -39,7 +40,7 @@ enum State : int32 {
 	Off = 0, On = 1, Bypassed = 2
 };
 
-#define COMPLEX_SAMPLES
+//#define COMPLEX_SAMPLES
 
 namespace cx {
  	const inline cx32 Zero = cx32();

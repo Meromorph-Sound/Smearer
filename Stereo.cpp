@@ -10,6 +10,8 @@
 namespace meromorph {
 namespace smearer {
 
+/*
+
 void StereoBuffer::zero() {
 	left.assign(BUFFER_SIZE,0.f);
 	right.assign(BUFFER_SIZE,0.f);
@@ -23,10 +25,16 @@ void StereoBuffer::product(const StereoBuffer &o) {
 		right[i] = left[i]*oR[i] + right[i]*oL[i];
 	}
 }
-void StereoBuffer::product(cx32 *buffer) {
+void StereoBuffer::product(float32 *lBuffer,float32 *rBuffer) {
 	for(auto i=0;i<BUFFER_SIZE;i++) {
-		auto z=buffer[i] * self(i);
-		self(i,z);
+		auto re=lBuffer[i];
+		auto im=rBuffer[i];
+		auto oRe = re*left[i] - im*right[i];
+		auto oIm = re*right[i] + im*left[i];
+		left[i] = oRe;
+		right[i] = oIm;
+		//auto z=buffer[i] * self(i);
+		//self(i,z);
 	}
 }
 
@@ -38,6 +46,8 @@ void StereoBuffer::get(const unsigned n,float32 &r,float32 &i) {
 	r=left[n];
 	i=right[n];
 }
+
+*/
 
 uint32 StereoChannel::read(port_t channel,float32 *buffer) {
 	auto ref = JBox_LoadMOMPropertyByTag(channel, IN_BUFFER);
@@ -54,19 +64,21 @@ void StereoChannel::write(port_t channel,float32 *buffer) {
 
 
 void StereoChannel::read() {
-	read(inL,stereo.lData());
-	read(inR,stereo.rData());
+	read(inL,left.data());
+	read(inR,right.data());
+//	read(inL,stereo.lData());
+//	read(inR,stereo.rData());
 }
 
 void StereoChannel::write() {
-	write(outL,stereo.lData());
-	write(outR,stereo.rData());
+	write(outL,left.data());
+	write(outR,right.data());
 }
 
 StereoChannel::StereoChannel(const port_t inL_,const port_t inR_,const port_t outL_,const port_t outR_) :
-		inL(inL_), inR(inR_), outL(outL_), outR(outR_), stereo() {}
+		inL(inL_), inR(inR_), outL(outL_), outR(outR_), left(BUFFER_SIZE,0.f), right(BUFFER_SIZE,0.f) {}
 
-StereoChannel::StereoChannel(const char *nameL,const char *nameR) : stereo() {
+StereoChannel::StereoChannel(const char *nameL,const char *nameR) : left(BUFFER_SIZE,0.f), right(BUFFER_SIZE,0.f) {
 	char str[80];
 	strcpy(str,"/audio_inputs/");
 	strcat(str,nameL);
@@ -92,6 +104,7 @@ void StereoChannel::bypass() {
 	write();
 }
 
+#ifdef COMPLEX_SAMPLES
 void StereoChannel::process(cx32 *oscillator) {
 	if(true) {
 		stereo.zero();
@@ -100,9 +113,32 @@ void StereoChannel::process(cx32 *oscillator) {
 		limiter.limit(stereo.lData(),stereo.rData(),BUFFER_SIZE);
 		write();
 	}
-
-
 }
+#else
+void StereoChannel::process(float32 *oscL,float32 *oscR) {
+	if(true) {
+		left.assign(BUFFER_SIZE,0.f);
+		right.assign(BUFFER_SIZE,0.f);
+
+		read();
+
+		for(auto i=0;i<BUFFER_SIZE;i++) {
+				auto re=left[i];
+				auto im=right[i];
+				auto oRe = re*oscL[i] - im*oscR[i];
+				auto oIm = re*oscR[i] + im*oscL[i];
+				left[i] = oRe;
+				right[i] = oIm;
+				//auto z=buffer[i] * self(i);
+				//self(i,z);
+			}
+
+
+		limiter.limit(left.data(),right.data(),BUFFER_SIZE);
+		write();
+	}
+}
+#endif
 
 } /* namespace smearer */
 } /* namespace meromorph */

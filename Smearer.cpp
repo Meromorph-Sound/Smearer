@@ -16,7 +16,7 @@ namespace smearer {
 
 
 
-Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), channel("Left","Right") {}
+Smearer::Smearer() : RackExtension(), oscL(BUFFER_SIZE,0),oscR(BUFFER_SIZE,0), channel("Left","Right") {}
 
 
 
@@ -46,7 +46,9 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		halfWidth = scaledFloat(diff.fCurrentValue,1.f,500.f);
 		trace("Setting half width to ^0",halfWidth);
 		oscillator.initialise(0,halfWidth);
-		filter.setWidth(halfWidth/sampleRate);
+		auto wid=halfWidth/sampleRate;
+		filterL.setWidth(wid);
+		filterR.setWidth(wid);
 		break;
 	}
 	case Tags::N_OSCILLATORS: {
@@ -94,13 +96,15 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto b = toBool(diff.fCurrentValue);
 		if(b) trace("Filter is ON");
 		else trace("Filter is OFF");
-		filter.setActive(b);
+		filterL.setActive(b);
+		filterR.setActive(b);
 		break;
 	}
 	case Tags::FILTER_Q: {
 		auto c = clampedFloat(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter Q is ^0",c);
-		filter.setQ(c);
+		filterL.setQ(c);
+		filterR.setQ(c);
 		break;
 	}
 	case Tags::FILTER_ORDER: {
@@ -185,10 +189,15 @@ void Smearer::process() {
 	case State::On: {
 		//trace("on!");
 		auto factor=scaleFactor;
+#ifdef COMPLEX_SAMPLES
 		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=(1.f-factor)+factor*oscillator();
 		filter.filter(osc);
-
-		channel.process(osc.data());
+#else
+		oscillator(BUFFER_SIZE,factor,oscL.data(),oscR.data());
+		filterL.filter(oscL);
+		filterR.filter(oscR);
+#endif
+		channel.process(oscL.data(),oscR.data());
 
 //		if(isConnectedInput(inL)) {
 //			read(inL,buffer.data());

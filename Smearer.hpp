@@ -89,12 +89,20 @@ private:
 	//port_t outL,outR;
 
 	OscillatorBank oscillator;
+#ifdef COMPLEX_SAMPLES
 	std::vector<cx32> osc;
+	Filter<cx32> filter;
+#else
+	std::vector<float32> oscL;
+	std::vector<float32> oscR;
+	Filter<float32> filterL;
+	Filter<float32> filterR;
+#endif
 
 	//Channel left, right;
 	StereoChannel channel;
 
-	Filter<cx32> filter;
+
 	//Filter rightFilter;
 	//Limiter leftLimiter;
 	//Limiter rightLimiter;
