@@ -157,7 +157,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		break;
 	}
 	case Tags::MIX_PROD: {
-		auto width=scaledFloat(diff.fCurrentValue,0.f,Pi);
+		auto width=scaledFloat(diff.fCurrentValue,0.f,1.0f);
 		oscillator.setWidth(width);
 		trace("Width changed to ^0",width);
 		break;

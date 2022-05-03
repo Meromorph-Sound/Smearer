@@ -83,8 +83,8 @@ front = jbox.panel {
       horizontal_justification = "right",
       tooltip_template = jbox.ui_text("scale")
     },
-    jbox.analog_knob(simpleNode('mix_ex')),
-    jbox.analog_knob(simpleNode('mix_in')),
+    --jbox.analog_knob(simpleNode('mix_ex')),
+    --jbox.analog_knob(simpleNode('mix_in')),
     jbox.analog_knob(simpleNode('mix_pr')),
     
     jbox.momentary_button(simpleNode("randomise")),

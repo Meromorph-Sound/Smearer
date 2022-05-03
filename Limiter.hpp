@@ -91,17 +91,18 @@ public:
 	bool limit(std::vector<T> &l,std::vector<T> &r) { return limit(l.data(),r.data(),l.size()); }
 };
 
+template <typename T>
+T max3(const T x,const T y,const T z) {
+	return std::max(x,std::max(y,z));
+}
+
 class StereoLimiter {
-public:
-	enum Mode : uint32 {
-		HARD=1,
-		SOFT=2
-	};
+
 
 private:
 
 	float32 scale;
-	Mode mode;
+	Limiter::Mode mode;
 	bool active;
 	bool didLimit;
 
@@ -109,13 +110,13 @@ private:
 	static constexpr float32 epsilon=1.0e-5;
 public:
 
-	StereoLimiter() : scale(1.0), mode(Mode::HARD), active(true), didLimit(false) {};
+	StereoLimiter() : scale(1.0), mode(Limiter::Mode::HARD), active(true), didLimit(false) {};
 	virtual ~StereoLimiter() = default;
 	StereoLimiter(const StereoLimiter &other) = default;
 	StereoLimiter& operator=(const StereoLimiter &other) = default;
 
 	void setLimit(const float32 s) { scale=s; }
-	void setMode(const Mode m) { mode=m; }
+	void setMode(const Limiter::Mode m) { mode=m; }
 	void setActive(const bool a) { active=a; }
 
 	template<typename T>
@@ -124,7 +125,7 @@ public:
 		if(!active) return false;
 
 		switch(mode) {
-		case Mode::SOFT:
+		case Limiter::Mode::SOFT:
 			for(auto i=0;i<n;i++) {
 				auto inL = left[i];
 				auto inR = right[i];
@@ -136,9 +137,9 @@ public:
 				didLimit = didLimit || (abs(dL-inL)>SOFT_THRESHOLD) || (abs(dR-inR)>SOFT_THRESHOLD);
 			}
 			break;
-		case Mode::HARD:
+		case Limiter::Mode::HARD:
 			for(auto i=0;i<n;i++) {
-				auto n = std::max(scale,std::abs(left[i]),std::abs(right[i]));
+				auto n = max3(scale,std::fabs(left[i]),std::fabs(right[i]));
 				left[i]=left[i]/n;
 				right[i]=right[i]/n;
 				didLimit = didLimit || (n>1);

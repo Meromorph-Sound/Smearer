@@ -31,7 +31,7 @@ private:
 
 		port_t inL,inR;
 		port_t outL,outR;
-		Limiters limiter;
+		StereoLimiter limiter;
 
 		//StereoBuffer stereo;
 		vec_t left, right;

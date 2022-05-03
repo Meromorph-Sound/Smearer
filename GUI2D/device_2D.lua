@@ -42,8 +42,8 @@ front = {
   jitter_on = {offset = { 2565,395 },{ path = "Lamp_10_GREEN_2frames", frames = 2 }},
   jitter_display = {offset={2300,610},{path="Display_200_50_1frames"}},
   
-  mix_ex = {offset = { 3350, 80 },{ path = "Knob_49_63frames", frames = 63 }},
-  mix_in = {offset = { 3350, 265 },{ path = "Knob_49_63frames", frames = 63 }},
+--mix_ex = {offset = { 3350, 80 },{ path = "Knob_49_63frames", frames = 63 }},
+--  mix_in = {offset = { 3350, 265 },{ path = "Knob_49_63frames", frames = 63 }},
   mix_pr = {offset = { 3350, 450 },{ path = "Knob_49_63frames", frames = 63 }},
   
   randomise = {offset={1715,225},{path="Button_75_2frames", frames=2}},

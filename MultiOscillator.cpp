@@ -16,7 +16,7 @@ const uint32 OscillatorBank::MaxN = 500;
 
 float32 OscillatorBank::randomFreq() { return (lower+random()*width)*invRate; }
 int32 OscillatorBank::randomLifetime() { return 64+int32(minLifetime+lifetimeRange*random()); }
-float32 OscillatorBank::randomAngle() { return (random()-.5f)*stereoWidth; }
+float32 OscillatorBank::randomAngle() { return (0.5+(random()-0.5)*stereoWidth)*Pi; }
 
 float32 OscillatorBank::window(const float32 f) {
 	if(f<=0.0) return 0.f;
