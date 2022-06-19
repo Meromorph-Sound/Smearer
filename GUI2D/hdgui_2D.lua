@@ -85,7 +85,8 @@ front = jbox.panel {
     },
     --jbox.analog_knob(simpleNode('mix_ex')),
     --jbox.analog_knob(simpleNode('mix_in')),
-    jbox.analog_knob(simpleNode('mix_pr')),
+    jbox.analog_knob(simpleNode('pan_centre')),
+    jbox.analog_knob(simpleNode('pan_width')),
     
     jbox.momentary_button(simpleNode("randomise")),
   }

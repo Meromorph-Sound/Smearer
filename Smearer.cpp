@@ -12,13 +12,7 @@
 namespace meromorph {
 namespace smearer {
 
-
-
-
-
-Smearer::Smearer() : RackExtension(), oscL(BUFFER_SIZE,0),oscR(BUFFER_SIZE,0), channel("Left","Right") {}
-
-
+Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), channel("Left","Right") {}
 
 void Smearer::reset() {
 	oscillator.reset();
@@ -47,8 +41,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		trace("Setting half width to ^0",halfWidth);
 		oscillator.initialise(0,halfWidth);
 		auto wid=halfWidth/sampleRate;
-		filterL.setWidth(wid);
-		filterR.setWidth(wid);
+		filter.setWidth(wid);
 		break;
 	}
 	case Tags::N_OSCILLATORS: {
@@ -96,21 +89,19 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto b = toBool(diff.fCurrentValue);
 		if(b) trace("Filter is ON");
 		else trace("Filter is OFF");
-		filterL.setActive(b);
-		filterR.setActive(b);
+		filter.setActive(b);
 		break;
 	}
 	case Tags::FILTER_Q: {
 		auto c = clampedFloat(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter Q is ^0",c);
-		filterL.setQ(c);
-		filterR.setQ(c);
+		filter.setQ(c);
 		break;
 	}
 	case Tags::FILTER_ORDER: {
 		uint32 c = 1+toInt(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter order is ^0",c);
-		//filter.setOrder(c);
+		filter.setOrder(c);
 		break;
 	}
 	case Tags::DURATION_MIN: {
@@ -145,7 +136,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	}
 	case Tags::SMOOTHING: {
 		auto s=scaledFloat(diff.fCurrentValue,1.f,250.f);
-		oscillator.setSmoothing((uint32)s);
+		//oscillator.setSmoothing((uint32)s);
 		break;
 	}
 	case Tags::RESEED: { // momentary boolean
@@ -156,10 +147,14 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		}
 		break;
 	}
-	case Tags::MIX_PROD: {
-		auto width=scaledFloat(diff.fCurrentValue,0.f,1.0f);
-		oscillator.setWidth(width);
-		trace("Width changed to ^0",width);
+	case Tags::PAN_CENTRE: {
+		//auto centre=scaledFloat(diff.fCurrentValue,-0.5f,0.5f);
+		//trace("Centre changed to ^0",centre);
+		break;
+	}
+	case Tags::PAN_WIDTH: {
+		//auto width=scaledFloat(diff.fCurrentValue,0.f,1.0f);
+		//trace("Width changed to ^0",width);
 		break;
 	}
 	case kJBox_AudioInputConnected:
@@ -174,61 +169,25 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 
 
 void Smearer::process() {
-
 	if(!initialised) {
 		oscillator.reseed(transportPosition());
-		//oscillator.setSilence(0.5);
 		initialised=true;
 	}
-//		oscillator.setCore(OscillatorCores::Sinusoid);
-//		initialised=true;
-//	}
-
 
 	switch(state) {
 	case State::On: {
 		//trace("on!");
 		auto factor=scaleFactor;
-#ifdef COMPLEX_SAMPLES
-		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=(1.f-factor)+factor*oscillator();
+		oscillator(BUFFER_SIZE,factor,osc.data());
 		filter.filter(osc);
-#else
-		oscillator(BUFFER_SIZE,factor,oscL.data(),oscR.data());
-		filterL.filter(oscL);
-		filterR.filter(oscR);
-#endif
-		channel.process(oscL.data(),oscR.data());
-
-//		if(isConnectedInput(inL)) {
-//			read(inL,buffer.data());
-//			for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=osc[i];
-//			leftLimiter.limit(buffer);
-//			write(outL,buffer.data());
-//		}
-//		if(isConnectedInput(inR)) {
-//			read(inR,buffer.data());
-//			for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=osc[i];
-//			rightLimiter.limit(buffer);
-//			write(outR,buffer.data());
-//		}
+		channel.process(osc.data());
 		break; }
 	case State::Bypassed:
-		//trace("Bypassed!");
 		channel.bypass();
 		break;
 	default:
 		break;
 	}
-
-	//	auto lr=left.getRMS();
-	//	if(lr!=oldLRMS) set(lr,Tags::LEFT_VOL);
-	//	oldLRMS=lr;
-	//
-	//	auto rr=right.getRMS();
-	//	if(rr!=oldRRMS) set(rr,Tags::RIGHT_VOL);
-	//	oldRRMS=rr;
-
-
 
 }
 

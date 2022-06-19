@@ -65,7 +65,8 @@ enum Tags : uint32 {
 	JITTER=25,
 	JITTER_ON=26,
 	SMOOTHING=27,
-	MIX_PROD=32,
+	PAN_CENTRE=30,
+	PAN_WIDTH=31,
 	RESEED=40
 };
 
@@ -75,50 +76,20 @@ private:
 	State state = State::On;
 	bool stateChanged=true;
 	bool initialised=false;
+	bool wasReseeded=false;
 
 	float32 halfWidth=1.f;
 	float32 scaleFactor=0.8f;
 	uint32 nOscillators=10;
 	float32 sampleRate=44100.f;
 
-	bool wasReseeded=false;
-
-
-
-	//port_t inL,inR;
-	//port_t outL,outR;
-
 	OscillatorBank oscillator;
-#ifdef COMPLEX_SAMPLES
-	std::vector<cx32> osc;
-	Filter<cx32> filter;
-#else
-	std::vector<float32> oscL;
-	std::vector<float32> oscR;
-	Filter<float32> filterL;
-	Filter<float32> filterR;
-#endif
-
-	//Channel left, right;
+	std::vector<float32> osc;
+	Filter<float32> filter;
 	StereoChannel channel;
 
 
-	//Filter rightFilter;
-	//Limiter leftLimiter;
-	//Limiter rightLimiter;
-
 	const static uint32 BUFFER_SIZE = 64;
-
-	//static const uint32 IN_BUFFER = kJBox_AudioInputBuffer;
-	//static const uint32 OUT_BUFFER = kJBox_AudioOutputBuffer;
-	//static const uint32 IN_CONN = kJBox_AudioInputConnected;
-	//static const uint32 OUT_CONN = kJBox_AudioOutputConnected;
-
-
-	//static uint32 read(const port_t port,float32 *data);
-	//static void write(const port_t port,float32 *data);
-	//static bool isConnectedInput(const port_t port);
-	//static bool isConnectedOutput(const port_t port);
 
 protected:
 
@@ -133,9 +104,6 @@ public:
 	virtual ~Smearer() = default;
 	Smearer(const Smearer &other) = default;
 	Smearer& operator=(const Smearer &other) = default;
-
-
-
 };
 
 } /* namespace click */

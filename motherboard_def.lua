@@ -24,9 +24,8 @@ local PropertyTags = {
   JITTER = 25,
   JITTER_ON = 26,
   SMOOTHING = 27,
-  MIX_EXT = 30,
-  MIX_INT = 31,
-  MIX_PROD = 32,
+  PAN_CENTRE = 30,
+  PAN_WIDTH = 31,
   RANDOMISE = 40,
 }
 
@@ -47,9 +46,8 @@ local PropertyNames= {
   [23]= "silence",
   [25]= "jitter",
   [27]= "smoothing",
-  [30]= "mix_ex",
-  [31]= "mix_in",
-  [32]= "mix_pr",
+  [30]= "pan_centre",
+  [31]= "pan_width",
   [40]= "randomise"
 }
 
@@ -72,8 +70,7 @@ local MIDICC={
   [27]= 80,
   [30]= 81,
   [31]= 82,
-  [32]= 83,
-  [40]= 84
+  [40]= 83
   }
 
 local WindowNames= {
@@ -166,34 +163,24 @@ custom_properties = jbox.property_set{
           units={{decimals=1,template = jbox.ui_text("scale" )}}
         }
       },
-      ['mix_ex'] = jbox.number { 
-        property_tag = PropertyTags.MIX_EXT,
+      ['pan_centre'] = jbox.number { 
+        property_tag = PropertyTags.PAN_CENTRE,
 		    default = 1,
-		    ui_name = textFor(PropertyTags.MIX_EXT),
+		    ui_name = textFor(PropertyTags.PAN_CENTRE),
 		    ui_type = jbox.ui_linear {
           min=0, 
-          max=1, 
-          units={{decimals=2,template = jbox.ui_text("scale" )}}
+          max=180, 
+          units={{decimals=0,template = jbox.ui_text("degrees" )}}
         }
       },
-      ['mix_in'] = jbox.number { 
-        property_tag = PropertyTags.MIX_INT,
+      ['pan_width'] = jbox.number { 
+        property_tag = PropertyTags.PAN_WIDTH,
 		    default = 0,
-		    ui_name = textFor(PropertyTags.MIX_INT),
+		    ui_name = textFor(PropertyTags.PAN_WIDTH),
 		    ui_type = jbox.ui_linear {
-          min=0, 
-          max=1, 
-          units={{decimals=2,template = jbox.ui_text("scale" )}}
-        }
-      },
-      ['mix_pr'] = jbox.number { 
-        property_tag = PropertyTags.MIX_PROD,
-		    default = 1,
-		    ui_name = textFor(PropertyTags.MIX_PROD),
-		    ui_type = jbox.ui_linear {
-          min=0, 
-          max=1, 
-          units={{decimals=2,template = jbox.ui_text("scale" )}}
+          min=-90, 
+          max=90, 
+          units={{decimals=0,template = jbox.ui_text("degrees" )}}
         }
       },
       ['window'] = jbox.number {

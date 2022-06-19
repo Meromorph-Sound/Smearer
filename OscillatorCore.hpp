@@ -56,15 +56,19 @@ public:
 	virtual float32 value(const float32 phase);
 };
 class ExponentialOscillator : public OscillatorCore {
+private:
+	float32 timeConstant;
 public:
-	ExponentialOscillator() : OscillatorCore(1.f/9.f) {}
+	ExponentialOscillator() : OscillatorCore(1.f/25.f) {
+		timeConstant=-log(0.005f)/TwoPi;
+	}
 	virtual ~ExponentialOscillator() = default;
 
 	virtual float32 value(const float32 phase);
 };
 class TriangleOscillator : public OscillatorCore {
 public:
-	TriangleOscillator()  : OscillatorCore(1.5f) {}
+	TriangleOscillator()  : OscillatorCore(1.0f) {}
 	virtual ~TriangleOscillator() = default;
 
 	virtual float32 value(const float32 phase);

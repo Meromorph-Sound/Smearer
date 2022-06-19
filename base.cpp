@@ -82,7 +82,8 @@ float32 clamp(const float32 f,const float32 upper) { return std::max(0.f,std::mi
 	strcat(str,ext);
 }
 
- cx32 r2c(const float32 r) { return cx32(r,0); }
+ //cx32 r2c(const float32 r) { return cx32(r,0); }
+float32 sign(const float32 f) { return (f>0.f) ? 1.f : (f<0.f) ? -1.f : 0.f; }
 
  namespace cx {
  	 float32 deg2rad(const float32 deg) { return deg * Pi/180.f; }

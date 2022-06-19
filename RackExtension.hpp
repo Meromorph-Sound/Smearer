@@ -8,14 +8,9 @@
 
 namespace meromorph {
 
-
-
-
 class RackExtension {
 
-	
 private:
-
 
 		TJBox_ObjectRef props;
 		TJBox_ObjectRef transport;

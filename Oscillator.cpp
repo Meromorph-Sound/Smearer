@@ -11,15 +11,31 @@ namespace meromorph {
 namespace smearer {
 
 
+void SmoothedValue::load(const float32 target,const float32 linear) {
+	auto inc=(target-delta);
+	if(inc<0) inc+=TwoPi;
+	increment=inc/(float)SmoothingPeriod;
+	count=0;
+	linIncrement=(linear-lin)/(float)SmoothingPeriod;
+}
+
+void SmoothedValue::step() {
+	if(count<SmoothingPeriod) {
+		lin+=linIncrement;
+		delta+=increment;
+		//trace("Reminder is ^0 delta is ^1",remainder,delta);
+		count++;
+	}
+	phase=std::remainder(phase+delta,TwoPi);
+}
+
+float32 SmoothedValue::value() {
+	step();
+	return phase;
+}
 
 
-void Oscillator::smoothing(const uint32 s) {
-	SmoothingPeriod = s;
-}
-void Oscillator::reset(const float32 phi0 ) { phase=phi0; }
-void Oscillator::jitter(const float32 j) {
-	phase=std::remainder(-phase+j*delta*0.05f,TwoPi);
-}
+void Oscillator::jitter(const float32 j) { phase=std::remainder(-phase+j*delta*0.05f,TwoPi); }
 void Oscillator::bump() { phase=std::remainder(-phase,TwoPi); }
 
 void Oscillator::init(const float32 d,const float32 a) {
@@ -29,8 +45,6 @@ void Oscillator::init(const float32 d,const float32 a) {
 	remainder=0;
 	amplitudeIncrement=(a-amplitude)/(float)SmoothingPeriod;
 }
-
-void Oscillator::silence() { init(delta,0); }
 
 void Oscillator::step() {
 	if(remainder<SmoothingPeriod) {

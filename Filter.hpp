@@ -13,6 +13,8 @@
 namespace meromorph {
 namespace smearer {
 
+
+
 template <typename T>
 class Filter {
 
@@ -104,6 +106,31 @@ public:
 		last2=state2;
 	}
 
+};
+
+template <typename T>
+class StereoFilter {
+private:
+	Filter<T> left;
+	Filter<T> right;
+
+public:
+	StereoFilter() : left(), right() {};
+	virtual ~StereoFilter() = default;
+	StereoFilter(const StereoFilter &other) = default;
+	StereoFilter(StereoFilter &&other) = default;
+	StereoFilter& operator=(const StereoFilter &other) = default;
+	StereoFilter& operator=(StereoFilter &&other) = default;
+
+	 void setActive(const bool b) { left.setActive(b); right.setActive(b); }
+	 void setQ(const float32 q) { left.setQ(q); right.setQ(q); }
+	 void setWidth(const float32 w) { left.setWidth(w); right.setWidth(w); }
+	 void setOrder(uint32 o) { left.setOrder(o); right.setOrder(o); }
+
+	void filter(std::vector<T> &vectorL,std::vector<T> &vectorR) {
+		left.filter(vectorL);
+		right.filter(vectorR);
+	}
 };
 
 } /* namespace smearer */

@@ -104,41 +104,19 @@ void StereoChannel::bypass() {
 	write();
 }
 
-#ifdef COMPLEX_SAMPLES
-void StereoChannel::process(cx32 *oscillator) {
-	if(true) {
-		stereo.zero();
-		read();
-		stereo.product(oscillator);
-		limiter.limit(stereo.lData(),stereo.rData(),BUFFER_SIZE);
-		write();
-	}
-}
-#else
-void StereoChannel::process(float32 *oscL,float32 *oscR) {
+void StereoChannel::process(float32 *osc) {
 	if(true) {
 		left.assign(BUFFER_SIZE,0.f);
 		right.assign(BUFFER_SIZE,0.f);
-
 		read();
-
 		for(auto i=0;i<BUFFER_SIZE;i++) {
-				auto re=left[i];
-				auto im=right[i];
-				auto oRe = re*oscL[i] - im*oscR[i];
-				auto oIm = re*oscR[i] + im*oscL[i];
-				left[i] = oRe;
-				right[i] = oIm;
-				//auto z=buffer[i] * self(i);
-				//self(i,z);
+				left[i]*=osc[i];
+				right[i]*=osc[i];
 			}
-
-
 		limiter.limit(left.data(),right.data(),BUFFER_SIZE);
 		write();
 	}
 }
-#endif
 
 } /* namespace smearer */
 } /* namespace meromorph */

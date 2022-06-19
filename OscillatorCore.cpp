@@ -9,9 +9,7 @@
 namespace meromorph {
 namespace smearer {
 
-inline float32 sign(const float32 f) {
-	return (f>0.f) ? 1.f : (f<0.f) ? -1.f : 0.f;
-}
+
 
 OscillatorCore::OscillatorCore(const float32 m) : multiplier(m/GainReduction) {}
 float32 OscillatorCore::operator()(const float32 phase) { return value(phase)*multiplier; }
@@ -22,10 +20,12 @@ float32 SawtoothOscillator::value(const float32 phase) {
 		return (phase/Pi)-1.f;
 	}
 float32 ExponentialOscillator::value(const float32 phase) {
-		return (2.f*exp(-phase)-1.f);
+		return (2.f*exp(-phase*timeConstant)-1.f);
 	}
 float32 TriangleOscillator::value(const float32 phase) {
-		return 2.f*abs((phase/Pi)-1.f)-1.f;
+	auto norm = phase/Pi;
+	return (norm<0.5f) ? norm : (norm<1.5f) ? 1.f-norm : norm - 2.f;
+		//0return 2.f*abs((phase/Pi)-1.f)-1.f;
 	}
 float32 SquareOscillator::value(const float32 phase) {
 	return phase<1 ? 0.9 : -0.8;

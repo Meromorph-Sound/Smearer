@@ -85,6 +85,7 @@ T clamp(const T lo,const T hi,const T value) {
  inline cx32 const cxZero = cx32(0,0);
 
 float32 dbToLinear(const float32 db);
+float32 sign(const float32 f);
 
 
 

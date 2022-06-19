@@ -31,9 +31,8 @@ private:
 
 		port_t inL,inR;
 		port_t outL,outR;
-		StereoLimiter limiter;
+		Limiters limiter;
 
-		//StereoBuffer stereo;
 		vec_t left, right;
 
 		uint32 read(port_t channel,float32 *buffer);
@@ -54,11 +53,7 @@ public:
 		StereoChannel & operator=(StereoChannel &&) = default;
 
 		void bypass();
-#ifdef COMPLEX_SAMPLES
-		void process(cx32 *oscillator);
-#else
-		void process(float32 *oscL,float32 *oscR);
-#endif
+		void process(float32 *osc);
 
 		void setLimiterActive(const bool a) { limiter.setActive(a); }
 		void setLimiterMode(const Limiter::Mode m) { limiter.setMode(m); }
