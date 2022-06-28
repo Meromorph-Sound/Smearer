@@ -31,9 +31,9 @@ bool Channel::isOutputConnected() {
 }
 
 
-Channel::Channel(const port_t in_,const port_t out_) : in(in_), out(out_), buffer(64,0) {}
+Channel::Channel(const port_t in_,const port_t out_) : in(in_), out(out_) {}
 
-Channel::Channel(const char *name) : buffer(64,0) {
+Channel::Channel(const char *name) {
 	char str[80];
 	strcpy(str,"/audio_inputs/");
 	strcat(str,name);
@@ -43,25 +43,6 @@ Channel::Channel(const char *name) : buffer(64,0) {
 	strcat(str,name);
 	out=JBox_GetMotherboardObjectRef(str);
 }
-
-
-void Channel::bypass() {
-	auto n = read(buffer.data());
-	if(n>0) write(buffer.data());
-}
-
-void Channel::process(float32 *oscillator) {
-	if(isInputConnected()) {
-		read(buffer.data());
-		for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=oscillator[i];
-		limiter.limit(buffer);
-		write(buffer.data());
-	}
-
-
-}
-
-
 
 } /* namespace smearer */
 } /* namespace meromorph */

@@ -126,7 +126,7 @@ float32 OscillatorBank::operator()() {
 
 		}
 	}
-	return out;
+	return out/float32(N);
 }
 
 void OscillatorBank::reseed(const float f) {

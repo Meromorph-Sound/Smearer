@@ -49,7 +49,7 @@ namespace smearer {
 enum Tags : uint32 {
 	HALF_WIDTH=1,
 	N_OSCILLATORS=2,
-	SCALE_FACTOR=3,
+	GAIN=3,
 	WINDOW=4,
 	FILTER_ON=5,
 	FILTER_Q=6,
@@ -79,7 +79,11 @@ private:
 	bool initialised=false;
 
 	float32 halfWidth=1.f;
-	float32 scaleFactor=0.8f;
+	float32 gain=0.8f;
+	float32 oscGain=1.0;
+	float32 factor=0.5f;
+	float32 factor1=0.4f;
+	float32 factor2=0.4f;
 	uint32 nOscillators=10;
 	float32 sampleRate=44100.f;
 
@@ -95,10 +99,13 @@ private:
 	OscillatorBank oscillator;
 	std::vector<float32> osc;
 
+	std::vector<float32> lBuffer, rBuffer;
+
 	Channel left, right;
 
 
 	Filter filter;
+	Limiter limiter;
 	//Filter rightFilter;
 	//Limiter leftLimiter;
 	//Limiter rightLimiter;
@@ -123,6 +130,7 @@ protected:
 	virtual void reset();
 	virtual void setSampleRate(const float32 rate);
 
+	void proc(Channel &ch);
 	float32 operator()(const float32 buf,const float32 mul) const;
 
 public:

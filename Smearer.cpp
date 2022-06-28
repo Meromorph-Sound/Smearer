@@ -16,7 +16,7 @@ namespace smearer {
 
 
 
-Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0), left("Left"), right("Right") {
+Smearer::Smearer() : RackExtension(), osc(BUFFER_SIZE,0),lBuffer(BUFFER_SIZE,0),rBuffer(BUFFER_SIZE,0), left("Left"), right("Right") {
 }
 
 
@@ -57,11 +57,13 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		break;
 	}
 
-	case Tags::SCALE_FACTOR: {
+	case Tags::GAIN: {
 		trace(">>> Processing GAIN @ tag ^0",tag);
 		auto f = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
-		scaleFactor=dbToLinear(f);
-		trace("DB is ^0 Gain is ^1",f,scaleFactor);
+		gain=dbToLinear(f)*0.95;
+		factor1=gain*factor;
+		factor2=gain*sqrtf(1.f-factor*factor);
+		trace("DB is ^0 Gain is ^1",f,gain);
 		break;
 	}
 	case Tags::WINDOW: {
@@ -74,15 +76,13 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto b = toBool(diff.fCurrentValue);
 		if(b) trace("Limiter is ON");
 		else trace("Limiter is OFF");
-		left.setLimiterActive(b);
-		right.setLimiterActive(b);
+		limiter.setActive(b);
 		break;
 	}
 	case Tags::LIMIT_MODE: {
 		auto m = static_cast<Limiter::Mode>(toInt(diff.fCurrentValue));
 		trace("Limiter mode is ^0",m);
-		left.setLimiterMode(m);
-		right.setLimiterMode(m);
+		limiter.setMode(m);
 		break;
 	}
 	case Tags::LIMIT_DEPTH: {
@@ -90,8 +90,7 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		auto l = scaledFloat(diff.fCurrentValue,-12.f,0.f);
 		auto p = pow(10.f,l*0.1f);
 		trace("Limiter scale is ^0 <=> ^1",r,l);
-		left.setLimiterLimit(p);
-		right.setLimiterLimit(p);
+		limiter.setLimit(p);
 		break;
 	}
 	case Tags::FILTER_ON: {
@@ -157,10 +156,15 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		break;
 	}
 	case Tags::MIX_EXT:
-		mix_ext=clampedFloat(diff.fCurrentValue);
+		//mix_ext=clampedFloat(diff.fCurrentValue);
+		factor=clampedFloat(diff.fCurrentValue);
+		factor1=gain*factor;
+		factor2=gain*sqrtf(1.f-factor*factor);
 		break;
 	case Tags::MIX_INT:
-		mix_int=clampedFloat(diff.fCurrentValue);
+		auto f = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
+		pscGain=dbToLinear(f)*0.95;
+		oscGain==clampedFloat(diff.fCurrentValue);
 		break;
 	case Tags::MIX_PROD:
 		mix_prod = clampedFloat(diff.fCurrentValue);
@@ -179,6 +183,13 @@ float32 Smearer::operator()(const float32 buf,const float32 mul) const {
 	return buf*mix_ext + mul*mix_int + buf*mul*mix_prod;
 }
 
+void Smearer::proc(Channel &ch) {
+	ch.read(buffer.data());
+	for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=factor1*osc[i]+factor2;
+	limiter.limit(buffer.data(),BUFFER_SIZE);
+	ch.write(lBuffer.data());
+}
+
 void Smearer::process() {
 
 	if(!initialised) {
@@ -186,38 +197,20 @@ void Smearer::process() {
 		//oscillator.setSilence(0.5);
 		initialised=true;
 	}
-//		oscillator.setCore(OscillatorCores::Sinusoid);
-//		initialised=true;
-//	}
 
 
 	switch(state) {
 	case State::On: {
-		//trace("on!");
-		auto factor=scaleFactor;
-		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=(1.f-factor)+factor*oscillator();
+		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=oscGain*oscillator(); //(1.f-factor)+factor*oscillator();
 		filter.filter(osc);
 
-		left.process(osc.data());
-		right.process(osc.data());
+		proc(left);
+		proc(right);
 
-//		if(isConnectedInput(inL)) {
-//			read(inL,buffer.data());
-//			for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=osc[i];
-//			leftLimiter.limit(buffer);
-//			write(outL,buffer.data());
-//		}
-//		if(isConnectedInput(inR)) {
-//			read(inR,buffer.data());
-//			for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=osc[i];
-//			rightLimiter.limit(buffer);
-//			write(outR,buffer.data());
-//		}
 		break; }
 	case State::Bypassed:
-		//trace("Bypassed!");
-		left.bypass();
-		right.bypass();
+		if(left.read(buffer.data())>0) left.write(buffer.data());
+		if(right.read(buffer.data())>0) right.write(buffer.data());
 		break;
 	default:
 		break;

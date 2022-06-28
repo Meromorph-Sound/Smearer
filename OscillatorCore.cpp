@@ -13,7 +13,7 @@ inline float32 sign(const float32 f) {
 	return (f>0.f) ? 1.f : (f<0.f) ? -1.f : 0.f;
 }
 
-OscillatorCore::OscillatorCore(const float32 m) : multiplier(m/GainReduction) {}
+OscillatorCore::OscillatorCore(const float32 m) : multiplier(GainReduction/m) {}
 float32 OscillatorCore::operator()(const float32 phase) { return value(phase)*multiplier; }
 float32 OscillatorCore::value(const float32 phase) { return 0.f; }
 

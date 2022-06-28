@@ -55,9 +55,12 @@ public:
 			break;
 		case Mode::HARD:
 			for(auto i=0;i<n;i++) {
-				auto n = std::max(scale,std::abs(data[i]));
-				data[i]=data[i]/n;
-				didLimit = didLimit || (n>1);
+				auto d=data[i];
+				if(abs(d)>scale) {
+					auto s = signbit(d) ? -1 : 1;
+					data[i]=scale*s;
+					didLimit=true;
+				}
 			}
 			break;
 		}
@@ -66,6 +69,8 @@ public:
 	template<typename T>
 	bool limit(std::vector<T> &v) { return limit(v.data(),v.size()); }
 };
+
+
 
 } /* namespace meromorph */
 
