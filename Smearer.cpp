@@ -59,11 +59,6 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 
 	case Tags::GAIN: {
 		trace(">>> Processing GAIN @ tag ^0",tag);
-		auto f = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
-		gain=dbToLinear(f)*0.95;
-		factor1=gain*factor;
-		factor2=gain*sqrtf(1.f-factor*factor);
-		trace("DB is ^0 Gain is ^1",f,gain);
 		break;
 	}
 	case Tags::WINDOW: {
@@ -155,20 +150,22 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		}
 		break;
 	}
-	case Tags::MIX_EXT:
+	case Tags::MIX: {
 		//mix_ext=clampedFloat(diff.fCurrentValue);
 		factor=clampedFloat(diff.fCurrentValue);
-		factor1=gain*factor;
-		factor2=gain*sqrtf(1.f-factor*factor);
-		break;
-	case Tags::MIX_INT:
+		factor1=outGain*factor;
+		factor2=outGain*sqrtf(1.f-factor*factor);
+		break; }
+	case Tags::MOD_GAIN: {
 		auto f = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
-		pscGain=dbToLinear(f)*0.95;
-		oscGain==clampedFloat(diff.fCurrentValue);
-		break;
-	case Tags::MIX_PROD:
-		mix_prod = clampedFloat(diff.fCurrentValue);
-		break;
+		oscGain=dbToLinear(f)*0.95;
+		break; }
+	case Tags::OUT_GAIN: {
+		auto g = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
+		outGain=dbToLinear(g);
+		factor1=outGain*factor;
+		factor2=outGain*sqrtf(1.f-factor*factor);
+		break; }
 
 	case kJBox_AudioInputConnected:
 	case kJBox_AudioOutputConnected:

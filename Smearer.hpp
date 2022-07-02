@@ -65,9 +65,9 @@ enum Tags : uint32 {
 	JITTER=25,
 	JITTER_ON=26,
 	SMOOTHING=27,
-	MIX_EXT=30,
-	MIX_INT=31,
-	MIX_PROD=32,
+	MIX=30,
+	MOD_GAIN=31,
+	OUT_GAIN=32,
 	RESEED=40
 };
 
@@ -79,7 +79,7 @@ private:
 	bool initialised=false;
 
 	float32 halfWidth=1.f;
-	float32 gain=0.8f;
+	float32 outGain=0.8f;
 	float32 oscGain=1.0;
 	float32 factor=0.5f;
 	float32 factor1=0.4f;

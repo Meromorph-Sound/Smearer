@@ -31,7 +31,7 @@ front = jbox.panel {
     },
     jbox.analog_knob (simpleNode("half_width" )),
     jbox.analog_knob (simpleNode("n_oscillators")),
-    jbox.analog_knob (simpleNode("scale_factor")),
+    --jbox.analog_knob (simpleNode("scale_factor")),
     
     jbox.up_down_button(simpleNode("window")),
     jbox.analog_knob({ graphics = { node = "window_display" },value = prop("window") }),
@@ -83,9 +83,9 @@ front = jbox.panel {
       horizontal_justification = "right",
       tooltip_template = jbox.ui_text("scale")
     },
-    jbox.analog_knob(simpleNode('mix_ex')),
-    jbox.analog_knob(simpleNode('mix_in')),
-    jbox.analog_knob(simpleNode('mix_pr')),
+    jbox.analog_knob(simpleNode('mix')),
+    jbox.analog_knob(simpleNode('mod_gain')),
+    jbox.analog_knob(simpleNode('out_gain')),
     
     jbox.momentary_button(simpleNode("randomise")),
   }

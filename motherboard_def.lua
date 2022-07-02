@@ -24,9 +24,9 @@ local PropertyTags = {
   JITTER = 25,
   JITTER_ON = 26,
   SMOOTHING = 27,
-  MIX_EXT = 30,
-  MIX_INT = 31,
-  MIX_PROD = 32,
+  MIX = 30,
+  MOD_GAIN = 31,
+  OUT_GAIN = 32,
   RANDOMISE = 40,
 }
 
@@ -47,9 +47,9 @@ local PropertyNames= {
   [23]= "silence",
   [25]= "jitter",
   [27]= "smoothing",
-  [30]= "mix_ex",
-  [31]= "mix_in",
-  [32]= "mix_pr",
+  [30]= "mix",
+  [31]= "mod_gain",
+  [32]= "out_gain",
   [40]= "randomise"
 }
 
@@ -156,34 +156,34 @@ custom_properties = jbox.property_set{
           units={{decimals=0,template = jbox.ui_text("osc" )}}
         }
       },
-		  ['scale_factor'] = jbox.number {
-		    property_tag = PropertyTags.SCALE_FACTOR,
+		  ['mix'] = jbox.number {
+		    property_tag = PropertyTags.MIX,
 		    default = 0,
-		    ui_name = textFor(PropertyTags.SCALE_FACTOR),
+		    ui_name = textFor(PropertyTags.MIX),
 		    ui_type = jbox.ui_linear {
           min=-3, 
           max=3, 
           units={{decimals=1,template = jbox.ui_text("scale" )}}
         }
       },
-      ['mix_ex'] = jbox.number { 
-        property_tag = PropertyTags.MIX_EXT,
-		    default = 1,
-		    ui_name = textFor(PropertyTags.MIX_EXT),
+      ['mod_gain'] = jbox.number { 
+        property_tag = PropertyTags.MOD_GAIN,
+		    default = 0,
+		    ui_name = textFor(PropertyTags.MOD_GAIN),
 		    ui_type = jbox.ui_linear {
-          min=0, 
-          max=1, 
-          units={{decimals=2,template = jbox.ui_text("scale" )}}
+          min=-3, 
+          max=3, 
+          units={{decimals=1,template = jbox.ui_text("scale" )}}
         }
       },
-      ['mix_in'] = jbox.number { 
-        property_tag = PropertyTags.MIX_INT,
+      ['out_gain'] = jbox.number { 
+        property_tag = PropertyTags.OUT_GAIN,
 		    default = 0,
-		    ui_name = textFor(PropertyTags.MIX_INT),
+		    ui_name = textFor(PropertyTags.OUT_GAIN),
 		    ui_type = jbox.ui_linear {
-          min=0, 
-          max=1, 
-          units={{decimals=2,template = jbox.ui_text("scale" )}}
+          min=-3, 
+          max=3, 
+          units={{decimals=1,template = jbox.ui_text("scale" )}}
         }
       },
       ['mix_pr'] = jbox.number { 
