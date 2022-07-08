@@ -112,6 +112,19 @@ void OscillatorBank::setSmoothing(const uint32 s) {
 	for(auto n=0;n<MaxN;n++) bank[n]->smoothing(s);
 }
 
+void OscillatorBank::nOscillators(const uint32 n) {
+	auto nn = std::min(n,MaxN);
+	if(nn<N) {
+		for(auto i=n;i<N;i++) bank[i]->reset();
+		N=nn;
+	}
+	else if(nn>N) {
+		for(auto i=N;i<nn;i++) bank[i]->hardReset();
+		N=nn;
+	}
+	Ndiv=1.f/sqrtf((float32)N);
+}
+
 float32 OscillatorBank::operator()() {
 	if(!core) return 0.f;
 	auto out=0.f;
@@ -126,7 +139,7 @@ float32 OscillatorBank::operator()() {
 
 		}
 	}
-	return out/float32(N);
+	return out*Ndiv;
 }
 
 void OscillatorBank::reseed(const float f) {

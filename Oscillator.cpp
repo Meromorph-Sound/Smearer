@@ -31,6 +31,11 @@ void Oscillator::init(const float32 d,const float32 a) {
 }
 
 void Oscillator::silence() { init(delta,0); }
+void Oscillator::hardReset() {
+	phase=0;
+	amplitude=0;
+	delta=0;
+}
 
 void Oscillator::step() {
 	if(remainder<SmoothingPeriod) {

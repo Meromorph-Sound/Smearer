@@ -8,7 +8,7 @@ local LIMITER_MAX = 0
 local PropertyTags = {
   HALF_WIDTH = 1,
   N_OSCILLATORS = 2,
-  SCALE_FACTOR = 3,
+--  SCALE_FACTOR = 3,
   WINDOW = 4,
   FILTER_ON = 5,
   FILTER_Q = 6,
@@ -33,7 +33,7 @@ local PropertyTags = {
 local PropertyNames= {
   [1] = "half_width",
   [2] = "n_oscillators",
-  [3] = "scale_factor",
+--  [3] = "scale_factor",
   [4] = "window",
   [5] = "filter_on",
   [6] = "filter_q",
@@ -56,7 +56,7 @@ local PropertyNames= {
 local MIDICC={
   [1] = 65,
   [2] = 66,
-  [3] = 67,
+ -- [3] = 67,
   [4] = 68,
   [5] = 69,
   [6] = 70,
@@ -163,7 +163,7 @@ custom_properties = jbox.property_set{
 		    ui_type = jbox.ui_linear {
           min=-3, 
           max=3, 
-          units={{decimals=1,template = jbox.ui_text("scale" )}}
+          units={{decimals=1,template = jbox.ui_text("scale")}}
         }
       },
       ['mod_gain'] = jbox.number { 
@@ -184,16 +184,6 @@ custom_properties = jbox.property_set{
           min=-3, 
           max=3, 
           units={{decimals=1,template = jbox.ui_text("scale" )}}
-        }
-      },
-      ['mix_pr'] = jbox.number { 
-        property_tag = PropertyTags.MIX_PROD,
-		    default = 1,
-		    ui_name = textFor(PropertyTags.MIX_PROD),
-		    ui_type = jbox.ui_linear {
-          min=0, 
-          max=1, 
-          units={{decimals=2,template = jbox.ui_text("scale" )}}
         }
       },
       ['window'] = jbox.number {

@@ -7,7 +7,6 @@
 		deviceVersion="0.1.0d1">
 		<Object name="custom_properties">
 			<Value property="n_oscillators" type="number">10</Value>
-			<Value property="scale_factor" type="number">1</Value>
 		</Object>
 	</Properties>
 </JukeboxPatch>

@@ -98,13 +98,13 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	case Tags::FILTER_Q: {
 		auto c = clampedFloat(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter Q is ^0",c);
-		filter.setQ(c);
+		filter.setAlpha(c);
 		break;
 	}
 	case Tags::FILTER_ORDER: {
 		uint32 c = 1+toInt(diff.fCurrentValue); //log2(1+clampedFloat(diff.fCurrentValue));
 		trace("Filter order is ^0",c);
-		//filter.setOrder(c);
+		filter.setOrder(c);
 		break;
 	}
 	case Tags::DURATION_MIN: {
@@ -153,18 +153,18 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 	case Tags::MIX: {
 		//mix_ext=clampedFloat(diff.fCurrentValue);
 		factor=clampedFloat(diff.fCurrentValue);
-		factor1=outGain*factor;
-		factor2=outGain*sqrtf(1.f-factor*factor);
+		factor1=factor;
+		factor2=sqrtf(1.f-factor*factor);
 		break; }
 	case Tags::MOD_GAIN: {
 		auto f = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
-		oscGain=dbToLinear(f)*0.95;
+		oscGain=dbToLinear(f)*0.98;
 		break; }
 	case Tags::OUT_GAIN: {
 		auto g = scaledFloat(diff.fCurrentValue,SCALE_MIN,SCALE_MAX);
 		outGain=dbToLinear(g);
-		factor1=outGain*factor;
-		factor2=outGain*sqrtf(1.f-factor*factor);
+		//factor1=outGain*factor;
+		//factor2=outGain*sqrtf(1.f-factor*factor);
 		break; }
 
 	case kJBox_AudioInputConnected:
@@ -182,9 +182,9 @@ float32 Smearer::operator()(const float32 buf,const float32 mul) const {
 
 void Smearer::proc(Channel &ch) {
 	ch.read(buffer.data());
-	for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=factor1*osc[i]+factor2;
+	for(auto i=0;i<BUFFER_SIZE;i++) buffer[i]*=outGain*osc[i];
 	limiter.limit(buffer.data(),BUFFER_SIZE);
-	ch.write(lBuffer.data());
+	ch.write(buffer.data());
 }
 
 void Smearer::process() {
@@ -198,7 +198,7 @@ void Smearer::process() {
 
 	switch(state) {
 	case State::On: {
-		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=oscGain*oscillator(); //(1.f-factor)+factor*oscillator();
+		for(auto i=0;i<BUFFER_SIZE;i++) osc[i]=oscGain*factor*oscillator()+(1-factor); //(1.f-factor)+factor*oscillator();
 		filter.filter(osc);
 
 		proc(left);

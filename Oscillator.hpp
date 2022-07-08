@@ -28,7 +28,7 @@ public:
 
 
 
-	Oscillator(const float32 phi0) : phase(phi0), delta(0), amplitude(1.0) {
+	Oscillator(const float32 phi0) : phase(phi0), delta(0), amplitude(0.0) {
 	};
 	Oscillator() : Oscillator(0) {};
 	virtual ~Oscillator() = default;
@@ -38,6 +38,7 @@ public:
 	void smoothing(const uint32 s);
 
 	void reset(const float32 phi0 = 0);
+	void hardReset();
 	void jitter(const float32 j=0.01);
 	void bump();
 	void init(const float32 d,const float32 a);

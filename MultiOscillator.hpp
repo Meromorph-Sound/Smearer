@@ -35,6 +35,7 @@ private:
 
 
 	uint32 N=1;
+	float32 Ndiv=1.f;
 	std::vector<std::shared_ptr<Oscillator>> bank;
 	std::vector<std::shared_ptr<OscillatorCore>> cores;
 	std::vector<int32> remainder;
@@ -68,7 +69,7 @@ public:
 	void reset();
 
 	void initialise(const float32 lower_,const float32 upper_);
-	void nOscillators(const uint32 n) { N=std::min(n,MaxN); }
+	void nOscillators(const uint32 n) ;
 	void setSampleRate(const float32);
 	void setWindow(const WindowType w) { windowType=w; }
 	void setJitterOn(const bool b) { jitterOn=b; };
