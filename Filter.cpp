@@ -35,32 +35,23 @@ void Filter::setAlpha(const float32 a) {
 void Filter::filter(std::vector<float32> &vector) {
 	if(!active) return;
 
-	if(order==1) {
-		auto state=last0;
-		auto p = alpha;
+	auto state0=last0;
+	auto state1=last1;
 
-		std::transform(vector.begin(),vector.end(),vector.begin(),[p,&state](float32 x) {
-			auto s= x + p*state;
-			state=s;
-			return s;
-		});
-		last0=state;
-	}
-	else {
-		auto state0=last0;
-		auto state1=last1;
-		auto p = alpha*0.5f;
-		auto p3= alpha3;
+	auto p0 = (order==1) ? alpha : alpha*16.f;
+	auto p1 = (order==1) ? 0 : alpha3;
+	auto n = (order==1) ? alpha : alpha3;
 
-		std::transform(vector.begin(),vector.end(),vector.begin(),[p,p3,&state0,&state1](float32 x) {
-			auto s= x + p3*state0 + p*state1;
+
+		std::transform(vector.begin(),vector.end(),vector.begin(),[p0,p1,n,&state0,&state1](float32 x) {
+			auto s= n*x - p0*state0 - p1*state1;
 			state1=state0;
 			state0=s;
 			return s;
 		});
 		last0=state0;
 		last1=state1;
-	}
+
 
 }
 

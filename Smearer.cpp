@@ -47,7 +47,6 @@ void Smearer::processApplicationMessage(const TJBox_PropertyDiff &diff) {
 		halfWidth = scaledFloat(diff.fCurrentValue,1.f,500.f);
 		trace("Setting half width to ^0",halfWidth);
 		oscillator.initialise(0,halfWidth);
-		filter.setWidth(halfWidth/sampleRate);
 		break;
 	}
 	case Tags::N_OSCILLATORS: {
