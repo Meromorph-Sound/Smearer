@@ -14,7 +14,7 @@ short_name = "Smearer"
 
 product_id = "org.porternet.smearer"
 manufacturer = "meromorph"
-version_number = "0.1.0d2"
+version_number = "0.1.1b1"
 device_type = "creative_fx"
 supports_patches = true
 default_patch = "/Public/Smearer.repatch"
